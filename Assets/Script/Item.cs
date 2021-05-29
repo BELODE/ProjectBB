@@ -7,6 +7,7 @@ public class Item : MonoBehaviour
     public Items items = new Items();
 
     float speed = 0.0002f;
+    float xSpeed = 0f;
 
     public Vector2 upPos;
     public Vector2 endPos;
@@ -25,11 +26,15 @@ public class Item : MonoBehaviour
         items.code = int.Parse(str[2]);
         if (firstDrop == true)
         {
-            float lr = Random.Range(0.4f, 0.6f);
+            float lr = Random.Range(-0.6f, 0.6f);
             upPos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 0.5f);
             endPos = new Vector2(gameObject.transform.position.x, GameObject.Find("Player").GetComponent<PlayerMove>().target.transform.parent.transform.position.y - 1.5f);
             upLrPos = new Vector2(gameObject.transform.position.x + lr / 2, gameObject.transform.position.y);
-            endLrPos = new Vector2(gameObject.transform.position.x + lr, gameObject.transform.position.y);
+
+            if (lr >= 0)
+                xSpeed = 0.005f;
+            else
+                xSpeed = -0.005f;
         }
     }
 
@@ -48,7 +53,7 @@ public class Item : MonoBehaviour
             }
             else if (up == true && floor == false)
             {
-                this.transform.Translate(new Vector2(0.005f, endPos.y * (speed += 0.001f)));
+                this.transform.Translate(new Vector2(xSpeed, endPos.y * (speed += 0.001f)));
                 if (this.transform.position.y <= endPos.y)
                 {
                     floor = true;

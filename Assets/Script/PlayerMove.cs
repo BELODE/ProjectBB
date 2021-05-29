@@ -14,6 +14,8 @@ public class PlayerMove : MonoBehaviour
     public bool research = false;
     public bool breaking = false;
 
+    public List<GameObject> collisions = new List<GameObject>();
+
     public Animator ani;
     public Animator researchSliderAni;
     public GameObject target;
@@ -21,22 +23,19 @@ public class PlayerMove : MonoBehaviour
     public Slider researchSlider;
     public Inventory inven;
 
-    public MaterialManager materialManager;
-
     void Start()
     {
         ani = gameObject.GetComponent<Animator>();
         researchSlider = GameObject.Find("ResearchSlider").GetComponent<Slider>();
         researchSliderAni = researchSlider.GetComponent<Animator>();
         staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
-        materialManager = GameObject.Find("materialManager").GetComponent<MaterialManager>();
     }
 
     void Update()
     {
         RunCheck(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        if (Input.GetKey(KeyCode.W)||Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.S)|| Input.GetKey(KeyCode.D)|| Input.GetKey(KeyCode.LeftArrow)|| Input.GetKey(KeyCode.RightArrow)|| Input.GetKey(KeyCode.UpArrow)|| Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         }
@@ -47,32 +46,111 @@ public class PlayerMove : MonoBehaviour
             breaking = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        NowTarget();
+
+        if (Input.GetKeyDown(KeyCode.F) && target != null)
+        {
+            InteractionTarget();
+        }
+
+        AniControll();
+    }
+
+    private void NowTarget()
+    {
+        if (collisions.Count > 1)
+        {
+            for (int i = 0; i < collisions.Count - 1; i++)
+            {
+                Vector3 offset = transform.position - collisions[i].transform.position;
+                Vector3 offset2 = transform.position - collisions[i + 1].transform.position;
+                if (offset.sqrMagnitude < offset2.sqrMagnitude)
+                {
+                    target = collisions[i];
+                }
+                else if (offset.sqrMagnitude > offset2.sqrMagnitude)
+                {
+                    target = collisions[i + 1];
+                }
+            }
+        }
+        else if (collisions.Count == 1)
+        {
+            target = collisions[0];
+        }
+        else if (collisions.Count == 0)
+        {
+            target = null;
+        }
+    }
+
+    private void InteractionTarget()
+    { 
+        if (target.tag == "Drawer")
+        {
+            if(target.GetComponent<Animator>().GetBool("Open") == false)
+            {
+                research = true;
+            }
+            else if (target.GetComponent<Animator>().GetBool("Open") == true)
+            {
+                target.GetComponent<Animator>().SetBool("Open", false);
+            }
+        }
+        else if (target.tag == "Door")
+        {
+            Animator doorAni = target.GetComponent<Animator>();
+            if (doorAni.GetBool("Open") == false)
+            {
+                doorAni.SetBool("Open", true);
+            }
+            else if (doorAni.GetBool("Open") == true)
+            {
+                doorAni.SetBool("Open", false);
+            }
+        }
+        else if (target.tag == "Item")
         {
             inven.InvenCheck();
-            if (GameObject.Find("Inven").GetComponent<Inventory>().nowItem != null && inven.invenFull == false)
+            if (inven.invenFull == false)
             {
-                GameObject.Find("Inven").GetComponent<Inventory>().TakeItem();
+                inven.TakeItem(target);
                 Destroy(target);
             }
         }
+    }
 
-        Research();
-        if (target != null && target.name == "Door")
+    private void AniControll()
+    {
+        if (research==true)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            DrawerInven dInven = target.GetComponent<DrawerInven>();
+
+            if (breaking == false)
             {
-                if (target.GetComponent<Animator>().GetBool("Open") == false)
+                if (dInven.GetOpen() == false)
                 {
-                    target.GetComponent<Animator>().SetBool("Open", true);
+                    ani.SetBool("research", true);
+                    researchSliderAni.SetBool("research", true);
                 }
-                else if (target.GetComponent<Animator>().GetBool("Open") == true)
+
+                if (researchSlider.value <= 0)
                 {
-                    target.GetComponent<Animator>().SetBool("Open", false);
+                    dInven.ItemSpawn();
+                    ani.SetBool("research", false);
+                    researchSliderAni.SetBool("research", false);
+                    dInven.SetOpen(true);
+                    research = false;
                 }
             }
+            else if (breaking == true)
+            {
+                ani.SetBool("research", false);
+                ani.SetBool("breaking", true);
+                researchSliderAni.SetBool("research", false);
+                research = false;
+            }
         }
-        
     }
 
     private void RunCheck(float xMove,float yMove)
@@ -141,79 +219,14 @@ public class PlayerMove : MonoBehaviour
         this.transform.Translate(new Vector3(x, y, 0));
     }
 
-    private void Research()
-    {
-        if (target != null && target.tag == "Obstacle")
-        {
-            if (research == true)
-            {
-                if (breaking == false)
-                {
-                    if (target.GetComponent<Animator>().GetBool("Open") == false && Input.GetKey(KeyCode.Space)&&target.GetComponent<ObstacleInven>().itemsCode.Count!=0)
-                    {
-                        ani.SetBool("research", research);
-                        researchSliderAni.SetBool("research", research);
-                    }
-
-                    if (researchSlider.value <= 0)
-                    {
-                        target.GetComponent<ObstacleInven>().ItemSpawn();
-                        ani.SetBool("research", false);
-                        researchSliderAni.SetBool("research", false);
-                        target.GetComponent<Animator>().SetBool("Open", true);
-                        target.GetComponent<Animator>().GetComponent<SpriteRenderer>().material = materialManager.origin;
-                    }
-                }
-                else if (breaking == true)
-                {
-                    ani.SetBool("research", false);
-                    ani.SetBool("breaking", true);
-                    researchSliderAni.SetBool("research", false);
-                }
-            }
-            else if (research == false)
-            {
-                ani.SetBool("research", research);
-                researchSliderAni.SetBool("research", research);
-                if (target != null)
-                {
-                    target.GetComponent<Animator>().SetBool("Open", false);
-                    target = null;
-                }
-            }
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Obstacle")
-        {
-            collision.GetComponent<SpriteRenderer>().material = materialManager.change;
-            target = collision.gameObject;
-            research = true;
-        }
-        if(collision.tag == "Door")
-        {
-            target = collision.gameObject;
-        }
-        if (collision.tag == "Item")
-        {
-            target = collision.gameObject;
-            inven.nowItem = collision.gameObject;
-        }
+        collisions.Add(collision.gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Obstacle")
-        {
-            collision.GetComponent<SpriteRenderer>().material = materialManager.origin;
-            research = false;
-        }
-        if (collision.tag == "Item")
-        {
-            inven.nowItem = null;
-        }
+        collisions.Remove(collision.gameObject);
     }
 
 }

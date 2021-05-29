@@ -8,7 +8,6 @@ public class Inventory : MonoBehaviour
     public List<InvenItem> items;
     public int nowBlank = 0;
 
-    public GameObject nowItem;
     public GameObject dragItem;
 
     public bool invenFull = false;
@@ -23,12 +22,13 @@ public class Inventory : MonoBehaviour
         
     }
 
-    public void TakeItem()
+    public void TakeItem(GameObject Item)
     {
-        items[nowBlank].items.name = nowItem.GetComponent<Item>().items.name;
-        items[nowBlank].items.type = nowItem.GetComponent<Item>().items.type;
-        items[nowBlank].items.code = nowItem.GetComponent<Item>().items.code;
-        items[nowBlank].gameObject.GetComponent<Image>().sprite = nowItem.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
+        Item item = Item.GetComponent<Item>();
+        items[nowBlank].items.name = item.items.name;
+        items[nowBlank].items.type = item.items.type;
+        items[nowBlank].items.code = item.items.code;
+        items[nowBlank].gameObject.GetComponent<Image>().sprite = item.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
         nowBlank++;
     }
 
