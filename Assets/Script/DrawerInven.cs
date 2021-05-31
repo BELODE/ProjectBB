@@ -12,7 +12,7 @@ public class DrawerInven : MonoBehaviour
 
     void Start()
     {
-        mManager = GameObject.Find("materialManager").GetComponent<MaterialManager>();
+        mManager = GameObject.Find("MaterialManager").GetComponent<MaterialManager>();
         player = GameObject.Find("Player").GetComponent<PlayerMove>();
         itemS = GameObject.Find("ItemSpawner").GetComponent<ItemSpawner>();
         int rand = Random.Range(1, 5);
