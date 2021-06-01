@@ -11,9 +11,7 @@ GameObject:
   - component: {fileID: 6564562006874289428}
   - component: {fileID: 6564562006874289429}
   - component: {fileID: 6564562006874289430}
-  - component: {fileID: 6564562006874289431}
   - component: {fileID: 6564562006874289416}
-  - component: {fileID: 6564562006874289418}
   - component: {fileID: 6564562006874289417}
   m_Layer: 8
   m_Name: drawer
@@ -113,32 +111,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.41, y: 0.53794646}
   m_EdgeRadius: 0
---- !u!114 &6564562006874289431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6564562006874289427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000e34d1105
-  m_ShapePath:
-  - {x: -0.2043314, y: -0.06371015, z: 0}
-  - {x: 0.20603117, y: -0.06371009, z: 0}
-  - {x: 0.2058042, y: 0.06717051, z: 0}
-  - {x: -0.20603108, y: 0.067109615, z: 0}
-  m_ShapePathHash: 1299317321
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 17306
 --- !u!95 &6564562006874289416
 Animator:
   serializedVersion: 3
@@ -158,27 +130,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!50 &6564562006874289418
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6564562006874289427}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
 --- !u!114 &6564562006874289417
 MonoBehaviour:
   m_ObjectHideFlags: 0
