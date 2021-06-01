@@ -13,6 +13,7 @@ public class PlayerMove : MonoBehaviour
     public bool isRun = false;
     public bool research = false;
     public bool breaking = false;
+    public bool Push = false;
 
     public List<GameObject> collisions = new List<GameObject>();
 
@@ -22,6 +23,7 @@ public class PlayerMove : MonoBehaviour
     public Slider staminaSlider;
     public Slider researchSlider;
     public Inventory inven;
+    public GameObject grabbingObject, grabbingObjectParent;
 
     void Start()
     {
@@ -48,9 +50,19 @@ public class PlayerMove : MonoBehaviour
 
         NowTarget();
 
-        if (Input.GetKeyDown(KeyCode.F) && target != null)
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            InteractionTarget();
+            if (Push == true)
+            {
+                Grab();
+            }
+            else
+            {
+                if (target != null)
+                {
+                    InteractionTarget();
+                }
+            }
         }
 
         AniControll();
@@ -117,6 +129,42 @@ public class PlayerMove : MonoBehaviour
                 inven.TakeItem(target);
                 Destroy(target);
             }
+        }
+        else if (target.tag == "Grabable")
+        {
+            Grab();
+        }
+    }
+
+    private void Grab()
+    {
+        if(Push == true)
+        {
+            grabbingObject.transform.parent = grabbingObjectParent.transform;
+            speed = 3f;
+            ani.SetBool("Push", false);
+            Push = false;
+            grabbingObject = null;
+        }
+        else
+        {
+            LadderGrapSystem _LGS;
+            _LGS = target.gameObject.GetComponent<LadderGrapSystem>();
+            if (_LGS.isWest == true)
+            {
+                ani.SetFloat("isWest", 1);
+            }
+            else
+            {
+                ani.SetFloat("isWest", -1);
+            }
+
+            grabbingObject = _LGS.MainObject;
+            grabbingObjectParent = _LGS.Ledders;
+            grabbingObject.transform.parent = gameObject.transform;
+            speed = 2f;
+            ani.SetBool("Push", true);
+            Push = true;
         }
     }
 
@@ -221,7 +269,10 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collisions.Add(collision.gameObject);
+        if (collision.tag != "LayerSetting" && collision.tag != "Obstacle")
+        {
+            collisions.Add(collision.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

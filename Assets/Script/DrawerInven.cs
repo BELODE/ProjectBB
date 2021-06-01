@@ -5,6 +5,7 @@ using UnityEngine;
 public class DrawerInven : MonoBehaviour
 {
     public List<int> itemsCode = new List<int>();
+    static public int itemSortingOrder;
 
     private MaterialManager mManager;
     private PlayerMove player;
@@ -44,6 +45,7 @@ public class DrawerInven : MonoBehaviour
         if (itemsCode.Count > 0)
         {
             int rand = Random.Range(0, itemsCode.Count);
+            itemSortingOrder = this.gameObject.GetComponent<SpriteRenderer>().sortingOrder;
             GameObject gameObject = Instantiate(itemS.items[itemsCode[rand]], GameObject.Find("Player").GetComponent<PlayerMove>().target.transform.position, Quaternion.identity) as GameObject;
             itemsCode.RemoveAt(rand);
         }

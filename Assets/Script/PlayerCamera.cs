@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     public Transform player;
-
+    public float yPositionTemp;
     void FixedUpdate()
     {
-        this.transform.position = new Vector3(player.position.x, player.position.y, player.position.z - 10);
+        this.transform.position = new Vector3(player.position.x, player.position.y + yPositionTemp, player.position.z - 10);
     }
 }

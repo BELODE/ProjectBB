@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 4944087975212859477}
   - component: {fileID: 4944087975212859476}
   - component: {fileID: 4944087975212859482}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: ladder
-  m_TagString: Ladder
+  m_TagString: LayerSetting
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,18 +188,6 @@ MonoBehaviour:
   - {x: 0.15001416, y: -0.19498098, z: 0}
   - {x: 0.15996218, y: -0.19500816, z: 0}
   - {x: 0.15988493, y: -0.17501044, z: 0}
-  - {x: 0.13998914, y: -0.17501044, z: 0}
-  - {x: 0.139992, y: -0.16506195, z: 0}
-  - {x: 0.15000105, y: -0.16494155, z: 0}
-  - {x: 0.14979815, y: -0.14495003, z: 0}
-  - {x: 0.15949655, y: -0.14484227, z: 0}
-  - {x: 0.15973473, y: -0.12491655, z: 0}
-  - {x: -0.15967083, y: -0.12490022, z: 0}
-  - {x: -0.1596601, y: -0.14487743, z: 0}
-  - {x: -0.1499753, y: -0.1448108, z: 0}
-  - {x: -0.1497469, y: -0.16478682, z: 0}
-  - {x: -0.13981605, y: -0.16478693, z: 0}
-  - {x: -0.13984323, y: -0.17491078, z: 0}
   - {x: -0.15959501, y: -0.17514145, z: 0}
   - {x: -0.15945959, y: -0.19491196, z: 0}
   - {x: -0.14986873, y: -0.19496524, z: 0}
@@ -217,9 +205,9 @@ MonoBehaviour:
   - {x: -0.16977239, y: -0.2747923, z: 0}
   - {x: -0.1698451, y: -0.29512584, z: 0}
   - {x: -0.16018677, y: -0.29483533, z: 0}
-  m_ShapePathHash: -1573528075
+  m_ShapePathHash: -1283004171
   m_Mesh: {fileID: 0}
-  m_InstanceId: -195298
+  m_InstanceId: 64012
 --- !u!1 &4944087975370137017
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,9 +217,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4944087975370137022}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Ladder
-  m_TagString: Untagged
+  m_TagString: Ladder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,9 +254,9 @@ GameObject:
   - component: {fileID: 4944087975449039602}
   - component: {fileID: 4944087975449039600}
   - component: {fileID: 4944087975449039603}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: R_Grab
-  m_TagString: Untagged
+  m_TagString: Grabable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -299,11 +287,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf219aed31e30894186da5bf20c29bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnter: 0
-  PM: {fileID: 0}
   MainObject: {fileID: 4944087975370137017}
   Ledders: {fileID: 0}
   isWest: 0
+  _SpRenderer: {fileID: 4944087975212859473}
 --- !u!61 &4944087975449039603
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -341,9 +328,9 @@ GameObject:
   - component: {fileID: 4944087975972680780}
   - component: {fileID: 4944087975972680781}
   - component: {fileID: 4944087975972680818}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: L_Grab
-  m_TagString: Untagged
+  m_TagString: Grabable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -374,11 +361,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf219aed31e30894186da5bf20c29bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEnter: 0
-  PM: {fileID: 0}
   MainObject: {fileID: 4944087975370137017}
   Ledders: {fileID: 0}
   isWest: 1
+  _SpRenderer: {fileID: 4944087975212859473}
 --- !u!61 &4944087975972680818
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -416,9 +402,9 @@ GameObject:
   - component: {fileID: 4944087976126662098}
   - component: {fileID: 4944087976126662096}
   - component: {fileID: 4944087976126662099}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Ladder_FrontLayerSetting
-  m_TagString: Untagged
+  m_TagString: LayerSetting
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -493,9 +479,9 @@ GameObject:
   - component: {fileID: 4944087976603165546}
   - component: {fileID: 4944087976603165550}
   - component: {fileID: 4944087976603165545}
-  m_Layer: 17
-  m_Name: GameObject
-  m_TagString: Untagged
+  m_Layer: 16
+  m_Name: LadderOn
+  m_TagString: LayerSetting
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -605,7 +591,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0027256012, y: -0.18616998}
+  m_Offset: {x: 0, y: -0.19179499}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -616,7 +602,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.38088417, y: 1.0811803}
+  m_Size: {x: 0.35020232, y: 1.0699303}
   m_EdgeRadius: 0
 --- !u!114 &4944087976603165545
 MonoBehaviour:
@@ -641,9 +627,9 @@ GameObject:
   - component: {fileID: 4944087976619428672}
   - component: {fileID: 4944087976619428678}
   - component: {fileID: 4944087976619428673}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Ladder_BehindLayerSetting
-  m_TagString: Untagged
+  m_TagString: LayerSetting
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

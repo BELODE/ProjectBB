@@ -20,6 +20,8 @@ public class Item : MonoBehaviour
 
     void Start()
     {
+        gameObject.GetComponentInChildren<SpriteRenderer>().sortingOrder = DrawerInven.itemSortingOrder + 1;
+
         string[] str = gameObject.name.Split('_');
         items.name = str[0];
         items.type = str[1];
