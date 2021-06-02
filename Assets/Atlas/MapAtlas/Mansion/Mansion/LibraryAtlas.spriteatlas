@@ -75,7 +75,11 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 9f37d7e92f4f6de4d855d77421f131ca, type: 3}
   - {fileID: 21300000, guid: 60e6741a2159a2b43935536af70cff51, type: 3}
   - {fileID: 21300000, guid: 90dca94a83a80d741b7a879da3d92160, type: 3}
-  - {fileID: 21300000, guid: 8fa5d5cab1b234d448e378cf9f1ffce4, type: 3}
+  - {fileID: -2254868913033466095, guid: 8fa5d5cab1b234d448e378cf9f1ffce4, type: 3}
+  - {fileID: 7176725445494016928, guid: 8fa5d5cab1b234d448e378cf9f1ffce4, type: 3}
+  - {fileID: -9039524077008101933, guid: 8fa5d5cab1b234d448e378cf9f1ffce4, type: 3}
+  - {fileID: -5445880773966413724, guid: 8fa5d5cab1b234d448e378cf9f1ffce4, type: 3}
+  - {fileID: -4033907757933028695, guid: 8fa5d5cab1b234d448e378cf9f1ffce4, type: 3}
   - {fileID: 21300000, guid: 5f00e7dbc4531fc4ba4c32d20c5453c8, type: 3}
   - {fileID: 4846172013353603479, guid: be74632d064b19c448482dc3c1b22a56, type: 3}
   - {fileID: -5998208836627333749, guid: be74632d064b19c448482dc3c1b22a56, type: 3}
@@ -116,7 +120,11 @@ SpriteAtlas:
   - library_wall_1
   - library_candle
   - library_ladder
-  - library_wall_2
+  - library_wall_2_1
+  - library_wall_2_0
+  - library_wall_2_3
+  - library_wall_2_2
+  - library_wall_2_4
   - library_overdrawer
   - drawer_open_2
   - drawer_open_3
