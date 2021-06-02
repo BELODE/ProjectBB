@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HallAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 4
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 07ad348acb275094092344a35395ebeb, type: 3}
+    totalSpriteSurfaceArea: 37573
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: d58d7482ac2881044a29caffeb82bfc9, type: 3}
+  - {fileID: 21300000, guid: 77a1f5948a40c534a86d25d2c56b9fa8, type: 3}
+  - {fileID: 21300000, guid: 3cf4efd5f7957d54ead00b810afec75c, type: 3}
+  - {fileID: 21300000, guid: c16213c889ea512479f36836d042b548, type: 3}
+  - {fileID: 21300000, guid: c0c7093c96e9db14c9dd9b8e26edb513, type: 3}
+  - {fileID: 21300000, guid: c7d43dcd78b23f74c9bfe2d534b2d354, type: 3}
+  - {fileID: 21300000, guid: 83f48eedad64c8441b2a561b65e2135a, type: 3}
+  - {fileID: 21300000, guid: e0cf5dfec2dddea4eb46ad2def8f084d, type: 3}
+  - {fileID: 21300000, guid: b93637ff6fe08cb41a90519068591421, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - exhibition_hall_wall_1
+  - exhibition_hall_carpet
+  - exhibition_hall_chandelier
+  - exhibition_hall_display_2
+  - exhibition_hall_tile
+  - exhibition_hall_display_4
+  - exhibition_hall_drawer_open
+  - exhibition_hall_display_3
+  - exhibition_hall_display_1
+  m_Tag: HallAtlas
+  m_IsVariant: 0
