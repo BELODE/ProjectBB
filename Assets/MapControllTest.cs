@@ -88,6 +88,7 @@ public class MapControllTest : MonoBehaviour
 
     void HideAlpha(SpriteRenderer[] renderers, GameObject group)
     {
+
         foreach (SpriteRenderer _sp in renderers)
         {
             if (_sp.color.a > 0)
