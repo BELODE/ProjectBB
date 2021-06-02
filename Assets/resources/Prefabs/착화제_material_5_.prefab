@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1340700924232923316}
   - component: {fileID: -6574446220570363338}
   m_Layer: 0
-  m_Name: Item (5)
+  m_Name: "\uCC29\uD654\uC81C_material_5_"
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,15 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 792a8416a32118e4ab9d8af9acada88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: "\uCC29\uD654\uC81C"
-  type: material
-  code: 5
   upPos: {x: 0, y: 0}
   endPos: {x: 0, y: 0}
   upLrPos: {x: 0, y: 0}
   endLrPos: {x: 0, y: 0}
   up: 0
   floor: 0
+  firstDrop: 1
 --- !u!61 &-6574446220570363338
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -78,7 +76,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45, y: 0.45}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &8188357066572722687
 GameObject:

@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1249063049434197793}
   - component: {fileID: -5461387700323802724}
   m_Layer: 0
-  m_Name: Item (8)
+  m_Name: "\uBC27\uC904_material_8_"
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,15 +127,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 792a8416a32118e4ab9d8af9acada88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: "\uBC27\uC904"
-  type: material
-  code: 8
   upPos: {x: 0, y: 0}
   endPos: {x: 0, y: 0}
   upLrPos: {x: 0, y: 0}
   endLrPos: {x: 0, y: 0}
   up: 0
   floor: 0
+  firstDrop: 1
 --- !u!61 &-5461387700323802724
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -160,5 +158,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45, y: 0.45}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
