@@ -14,6 +14,7 @@ public class PlayerMove : MonoBehaviour
     public bool research = false;
     public bool breaking = false;
     public bool Push = false;
+    public bool f_check = false;
 
     public List<GameObject> collisions = new List<GameObject>();
 
@@ -24,6 +25,7 @@ public class PlayerMove : MonoBehaviour
     public Slider researchSlider;
     public Inventory inven;
     public GameObject grabbingObject, grabbingObjectParent;
+    public GameObject Press_F;
 
     void Start()
     {
@@ -49,6 +51,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         NowTarget();
+        F_Check();
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -85,22 +88,68 @@ public class PlayerMove : MonoBehaviour
                     target = collisions[i + 1];
                 }
             }
+            f_check = true;
         }
         else if (collisions.Count == 1)
         {
             target = collisions[0];
+            f_check = true;
         }
         else if (collisions.Count == 0)
         {
             target = null;
+            f_check = false;
+        }
+    }
+
+    private void F_Check()
+    {
+        string str = "";
+        if (f_check == true)
+        {
+            if (target.tag == "Drawer")
+            {
+                if (target.GetComponent<Animator>().GetBool("Open") == true)
+                {
+                    str = "닫기";
+                }
+                else
+                {
+                    str = "탐색";
+                }
+            }
+            else if (target.tag == "Door")
+            {
+                if (target.GetComponent<Animator>().GetBool("Open") == true)
+                {
+                    str = "닫기";
+                }
+                else
+                {
+                    str = "열기";
+                }
+            }
+            else if (target.tag == "Item")
+            {
+                str = "줍기";
+            }
+            else if (target.tag == "Grabable")
+            {
+                str = "옮기기";
+            }
+            Press_F.transform.GetComponentInChildren<Text>().text = str;
+            Press_F.SetActive(true);
+        }else if (f_check == false)
+        {
+            Press_F.SetActive(false);
         }
     }
 
     private void InteractionTarget()
-    { 
+    {
         if (target.tag == "Drawer")
         {
-            if(target.GetComponent<Animator>().GetBool("Open") == false)
+            if (target.GetComponent<Animator>().GetBool("Open") == false)
             {
                 research = true;
             }
@@ -271,7 +320,14 @@ public class PlayerMove : MonoBehaviour
     {
         if (collision.tag != "LayerSetting" && collision.tag != "Obstacle")
         {
-            collisions.Add(collision.gameObject);
+            if (collision.tag == "Drawer"&&collision.GetComponent<SpriteRenderer>().sortingOrder>=gameObject.GetComponent<SpriteRenderer>().sortingOrder)
+            {
+
+            }
+            else
+            {
+                collisions.Add(collision.gameObject);
+            }
         }
     }
 

@@ -55,7 +55,7 @@ public class Item : MonoBehaviour
             }
             else if (up == true && floor == false)
             {
-                this.transform.Translate(new Vector2(xSpeed, endPos.y * (speed += 0.001f)));
+                this.transform.Translate(new Vector2(xSpeed, -1f * (speed += 0.001f)));
                 if (this.transform.position.y <= endPos.y)
                 {
                     floor = true;

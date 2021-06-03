@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DrawerInven : MonoBehaviour
 {
-    public List<int> itemsCode = new List<int>();
+    public int itemsCode;
+    public int persent;
     static public int itemSortingOrder;
 
     private MaterialManager mManager;
@@ -16,11 +17,7 @@ public class DrawerInven : MonoBehaviour
         mManager = GameObject.Find("MaterialManager").GetComponent<MaterialManager>();
         player = GameObject.Find("Player").GetComponent<PlayerMove>();
         itemS = GameObject.Find("ItemSpawner").GetComponent<ItemSpawner>();
-        int rand = Random.Range(1, 5);
-        for (int i = 0; i < rand; i++)
-        {
-            itemsCode.Add(Random.Range(0, GameObject.Find("ItemSpawner").GetComponent<ItemSpawner>().items.Length));
-        }
+        itemsCode = Random.Range(0, GameObject.Find("ItemSpawner").GetComponent<ItemSpawner>().items.Length);
     }
 
     void Update()
@@ -42,18 +39,17 @@ public class DrawerInven : MonoBehaviour
 
     public void ItemSpawn()
     {
-        if (itemsCode.Count > 0)
+        if (itemsCode != -1)
         {
-            int rand = Random.Range(0, itemsCode.Count);
             itemSortingOrder = this.gameObject.GetComponent<SpriteRenderer>().sortingOrder;
-            GameObject gameObject = Instantiate(itemS.items[itemsCode[rand]], GameObject.Find("Player").GetComponent<PlayerMove>().target.transform.position, Quaternion.identity) as GameObject;
-            itemsCode.RemoveAt(rand);
+            GameObject gameObject = Instantiate(itemS.items[itemsCode], GameObject.Find("Player").GetComponent<PlayerMove>().target.transform.position, Quaternion.identity) as GameObject;
+            itemsCode = -1;
         }
     }
 
     public void ItemIn(int code)
     {
-        itemsCode.Add(code);
+        itemsCode = code;
     }
 
     public bool GetOpen()
