@@ -20,8 +20,11 @@ public class LadderSystem : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
-        {            
-            collision.gameObject.layer = LayerMask.NameToLayer("PlayerLadderOn");
+        {
+            if (collision.GetComponent<PlayerMove>().Push == false)
+            {
+                collision.gameObject.layer = LayerMask.NameToLayer("PlayerLadderOn");
+            }
         }
     }
 }

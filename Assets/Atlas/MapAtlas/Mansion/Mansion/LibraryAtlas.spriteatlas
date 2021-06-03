@@ -93,8 +93,8 @@ SpriteAtlas:
   - {fileID: -5998208836627333749, guid: be74632d064b19c448482dc3c1b22a56, type: 3}
   - {fileID: -6919862440458156023, guid: be74632d064b19c448482dc3c1b22a56, type: 3}
   - {fileID: -6422198556311735633, guid: be74632d064b19c448482dc3c1b22a56, type: 3}
-  - {fileID: 21300000, guid: 7a73c62fe2d02314d8a1f63972f7083b, type: 3}
   - {fileID: 21300000, guid: c43b405fe68fd234cab8ad92aa8007d6, type: 3}
+  - {fileID: 21300000, guid: 8ba40b5f7969462409ec56ae6d0e66c3, type: 3}
   - {fileID: 92204560777879939, guid: 8b15567f47cb88646b1f1067ea87bd94, type: 3}
   - {fileID: 646722227624610448, guid: 8b15567f47cb88646b1f1067ea87bd94, type: 3}
   - {fileID: 3548893276383848709, guid: 8b15567f47cb88646b1f1067ea87bd94, type: 3}
@@ -147,8 +147,8 @@ SpriteAtlas:
   - drawer_open_3
   - drawer_open_0
   - drawer_open_1
-  - library_wall_sidedoor
   - library_bookcase_ft
+  - library_wall_sidedoor
   - library_pilaster_top_4
   - library_pilaster_top_2
   - library_pilaster_top_0

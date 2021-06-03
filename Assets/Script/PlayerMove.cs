@@ -26,6 +26,7 @@ public class PlayerMove : MonoBehaviour
     public Inventory inven;
     public GameObject grabbingObject, grabbingObjectParent;
     public GameObject Press_F;
+    public Vector3 grabbingObjectPosition;
 
     void Start()
     {
@@ -69,6 +70,11 @@ public class PlayerMove : MonoBehaviour
         }
 
         AniControll();
+
+        if(Push == true)
+        {
+            grabbingObject.transform.position = gameObject.transform.position + new Vector3(grabbingObjectPosition.x * ani.GetFloat("isWest"), grabbingObjectPosition.y, 0);
+        }
     }
 
     private void NowTarget()
@@ -135,7 +141,14 @@ public class PlayerMove : MonoBehaviour
             }
             else if (target.tag == "Grabable")
             {
-                str = "옮기기";
+                if (Push == false)
+                {
+                    str = "옮기기";
+                }
+                else
+                {
+                    str = "놓기";
+                }
             }
             Press_F.transform.GetComponentInChildren<Text>().text = str;
             Press_F.SetActive(true);
@@ -189,7 +202,6 @@ public class PlayerMove : MonoBehaviour
     {
         if(Push == true)
         {
-            grabbingObject.transform.parent = grabbingObjectParent.transform;
             speed = 3f;
             ani.SetBool("Push", false);
             Push = false;
@@ -199,6 +211,7 @@ public class PlayerMove : MonoBehaviour
         {
             LadderGrapSystem _LGS;
             _LGS = target.gameObject.GetComponent<LadderGrapSystem>();
+
             if (_LGS.isWest == true)
             {
                 ani.SetFloat("isWest", 1);
@@ -208,9 +221,11 @@ public class PlayerMove : MonoBehaviour
                 ani.SetFloat("isWest", -1);
             }
 
+            collisions.Clear();
+            collisions.Add(_LGS.gameObject);
+
             grabbingObject = _LGS.MainObject;
             grabbingObjectParent = _LGS.Ledders;
-            grabbingObject.transform.parent = gameObject.transform;
             speed = 2f;
             ani.SetBool("Push", true);
             Push = true;
@@ -318,7 +333,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag != "LayerSetting" && collision.tag != "Obstacle")
+        if (collision.tag != "LayerSetting" && collision.tag != "Obstacle" && Push == false && collision.tag != "Ladder")
         {
             if (collision.tag == "Drawer"&&collision.GetComponent<SpriteRenderer>().sortingOrder>=gameObject.GetComponent<SpriteRenderer>().sortingOrder)
             {
