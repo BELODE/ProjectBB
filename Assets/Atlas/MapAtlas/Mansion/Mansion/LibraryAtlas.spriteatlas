@@ -45,7 +45,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 6401d7cd4523c4a41b784786812b7ba2, type: 3}
     - {fileID: 102900000, guid: 2ba6408c74fd1ba4295c58c83fc0cf70, type: 3}
     - {fileID: 102900000, guid: a42761238a7ca0c42b550460ff806d27, type: 3}
-    totalSpriteSurfaceArea: 282565
+    totalSpriteSurfaceArea: 292782
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -82,11 +82,18 @@ SpriteAtlas:
   - {fileID: -5445880773966413724, guid: 8fa5d5cab1b234d448e378cf9f1ffce4, type: 3}
   - {fileID: -4033907757933028695, guid: 8fa5d5cab1b234d448e378cf9f1ffce4, type: 3}
   - {fileID: -5638290091203163860, guid: 45f9efbb6b154b84892701a9818e6d17, type: 3}
+  - {fileID: 4846172013353603479, guid: fd13d9cbf1beda342a76083399e878fd, type: 3}
+  - {fileID: -5998208836627333749, guid: fd13d9cbf1beda342a76083399e878fd, type: 3}
+  - {fileID: -6919862440458156023, guid: fd13d9cbf1beda342a76083399e878fd, type: 3}
+  - {fileID: -6422198556311735633, guid: fd13d9cbf1beda342a76083399e878fd, type: 3}
+  - {fileID: -5434807687808109788, guid: fd13d9cbf1beda342a76083399e878fd, type: 3}
+  - {fileID: 5615874307413563660, guid: fd13d9cbf1beda342a76083399e878fd, type: 3}
   - {fileID: 21300000, guid: 5f00e7dbc4531fc4ba4c32d20c5453c8, type: 3}
   - {fileID: 4846172013353603479, guid: be74632d064b19c448482dc3c1b22a56, type: 3}
   - {fileID: -5998208836627333749, guid: be74632d064b19c448482dc3c1b22a56, type: 3}
   - {fileID: -6919862440458156023, guid: be74632d064b19c448482dc3c1b22a56, type: 3}
   - {fileID: -6422198556311735633, guid: be74632d064b19c448482dc3c1b22a56, type: 3}
+  - {fileID: 21300000, guid: 7a73c62fe2d02314d8a1f63972f7083b, type: 3}
   - {fileID: 21300000, guid: c43b405fe68fd234cab8ad92aa8007d6, type: 3}
   - {fileID: 92204560777879939, guid: 8b15567f47cb88646b1f1067ea87bd94, type: 3}
   - {fileID: 646722227624610448, guid: 8b15567f47cb88646b1f1067ea87bd94, type: 3}
@@ -129,11 +136,18 @@ SpriteAtlas:
   - library_wall_2_2
   - library_wall_2_4
   - library_wall_6_0
+  - drawer_open_2
+  - drawer_open_3
+  - drawer_open_0
+  - drawer_open_1
+  - drawer_open_4
+  - drawer_open_5
   - library_overdrawer
   - drawer_open_2
   - drawer_open_3
   - drawer_open_0
   - drawer_open_1
+  - library_wall_sidedoor
   - library_bookcase_ft
   - library_pilaster_top_4
   - library_pilaster_top_2
