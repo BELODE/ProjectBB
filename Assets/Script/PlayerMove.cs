@@ -28,6 +28,8 @@ public class PlayerMove : MonoBehaviour
     public GameObject Press_F;
     public Vector3 grabbingObjectPosition;
 
+    public BoxCollider2D eastGrabCol, westGrabCol;
+
     void Start()
     {
         ani = gameObject.GetComponent<Animator>();
@@ -49,6 +51,7 @@ public class PlayerMove : MonoBehaviour
             ani.SetBool("walking", false);
             ani.SetBool("breaking", false);
             breaking = false;
+            this.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
         }
 
         NowTarget();
@@ -117,27 +120,31 @@ public class PlayerMove : MonoBehaviour
             {
                 if (target.GetComponent<Animator>().GetBool("Open") == true)
                 {
-                    str = "닫기";
+
+                    str = "서랍 닫기";
                 }
                 else
                 {
-                    str = "탐색";
+
+                    str = "아이템 탐색";
                 }
             }
             else if (target.tag == "Door")
             {
                 if (target.GetComponent<Animator>().GetBool("Open") == true)
                 {
-                    str = "닫기";
+
+                    str = "문 닫기";
                 }
                 else
                 {
-                    str = "열기";
+
+                    str = "문 열기";
                 }
             }
             else if (target.tag == "Item")
             {
-                str = "줍기";
+                str = "아이템 줍기";
             }
             else if (target.tag == "Grabable")
             {
@@ -154,7 +161,7 @@ public class PlayerMove : MonoBehaviour
             Press_F.SetActive(true);
         }else if (f_check == false)
         {
-            Press_F.SetActive(false);
+            Press_F.GetComponent<Animator>().SetTrigger("Finish");
         }
     }
 
@@ -206,6 +213,9 @@ public class PlayerMove : MonoBehaviour
             ani.SetBool("Push", false);
             Push = false;
             grabbingObject = null;
+            eastGrabCol.enabled = false;
+            westGrabCol.enabled = false;
+
         }
         else
         {
@@ -215,10 +225,12 @@ public class PlayerMove : MonoBehaviour
             if (_LGS.isWest == true)
             {
                 ani.SetFloat("isWest", 1);
+                westGrabCol.enabled = true;
             }
             else
             {
                 ani.SetFloat("isWest", -1);
+                eastGrabCol.enabled = true;
             }
 
             collisions.Clear();
@@ -328,7 +340,9 @@ public class PlayerMove : MonoBehaviour
         float x = xMove * (speed + run) * Time.deltaTime;
         float y = yMove * (speed + run) * Time.deltaTime;
 
-        this.transform.Translate(new Vector3(x, y, 0));
+        //this.transform.Translate(new Vector3(x, y, 0));
+
+        this.GetComponent<Rigidbody2D>().velocity = new Vector3(xMove * (speed + run), yMove * (speed + run), 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

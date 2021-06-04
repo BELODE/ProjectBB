@@ -45,10 +45,16 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 6401d7cd4523c4a41b784786812b7ba2, type: 3}
     - {fileID: 102900000, guid: 2ba6408c74fd1ba4295c58c83fc0cf70, type: 3}
     - {fileID: 102900000, guid: a42761238a7ca0c42b550460ff806d27, type: 3}
-    totalSpriteSurfaceArea: 292782
+    totalSpriteSurfaceArea: 298182
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 5863464615973554596, guid: 533b4ab0bd0a2374391d8de03e8f8da9, type: 3}
+  - {fileID: 4764830528080590332, guid: 533b4ab0bd0a2374391d8de03e8f8da9, type: 3}
+  - {fileID: -2046714363035339177, guid: 533b4ab0bd0a2374391d8de03e8f8da9, type: 3}
+  - {fileID: 6119139311136013495, guid: 533b4ab0bd0a2374391d8de03e8f8da9, type: 3}
+  - {fileID: 2520667681790124698, guid: 533b4ab0bd0a2374391d8de03e8f8da9, type: 3}
+  - {fileID: 5282496903053685421, guid: 533b4ab0bd0a2374391d8de03e8f8da9, type: 3}
   - {fileID: 21300000, guid: a6b888d0c1c0e1a429b0ffaa9d5c57a8, type: 3}
   - {fileID: 21300000, guid: 829f2951c002edc41a676069b6142be2, type: 3}
   - {fileID: 21300000, guid: f8207e510bfe6ed43bf4c6d2e58783c3, type: 3}
@@ -103,6 +109,12 @@ SpriteAtlas:
   - {fileID: 8064220278248563989, guid: 9b75dbdf9943a814296ec906d1667ec3, type: 3}
   - {fileID: 8199850426363588318, guid: 9b75dbdf9943a814296ec906d1667ec3, type: 3}
   m_PackedSpriteNamesToIndex:
+  - candle_burn_5
+  - candle_burn_4
+  - candle_burn_1
+  - candle_burn_0
+  - candle_burn_3
+  - candle_burn_2
   - library_wall_3
   - library_bookcase_side
   - common_background

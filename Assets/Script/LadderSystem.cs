@@ -10,6 +10,9 @@ public class LadderSystem : MonoBehaviour
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Ladder"), LayerMask.NameToLayer("Player"), true);
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Ladder"), LayerMask.NameToLayer("Default"), true);
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerLadderOn"), LayerMask.NameToLayer("Default"), true);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerLadderOn"), LayerMask.NameToLayer("LadderDefault"), true);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("GrabedPlayer"), LayerMask.NameToLayer("LadderDefault"), true);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("GrabedPlayer"), LayerMask.NameToLayer("Ladder"), true);
     }
 
     // Update is called once per frame
