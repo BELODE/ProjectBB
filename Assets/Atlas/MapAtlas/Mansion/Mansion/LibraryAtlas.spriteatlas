@@ -45,7 +45,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 6401d7cd4523c4a41b784786812b7ba2, type: 3}
     - {fileID: 102900000, guid: 2ba6408c74fd1ba4295c58c83fc0cf70, type: 3}
     - {fileID: 102900000, guid: a42761238a7ca0c42b550460ff806d27, type: 3}
-    totalSpriteSurfaceArea: 298182
+    totalSpriteSurfaceArea: 349749
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -60,11 +60,18 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f8207e510bfe6ed43bf4c6d2e58783c3, type: 3}
   - {fileID: 21300000, guid: d7cb5291ec595dc4bbe7728411631739, type: 3}
   - {fileID: 21300000, guid: bf046d919187dc34a901b9ba72b2d2c2, type: 3}
+  - {fileID: 21300000, guid: 3a0487e26be23d74fa085021ed82586e, type: 3}
+  - {fileID: 21300000, guid: d60cc9b37982bd14e85ec73ccd04a7a2, type: 3}
+  - {fileID: 21300000, guid: 42d83e04c955ccc4cba061d3c10ce586, type: 3}
   - {fileID: 21300000, guid: d68863146aca19e4a8f360e1fa8f40f1, type: 3}
   - {fileID: 21300000, guid: 50e76d75cb370ed448bd4b2360e5a7ce, type: 3}
+  - {fileID: 21300000, guid: 147730768767abd43a18149a32266978, type: 3}
+  - {fileID: 21300000, guid: 46231f67872dd454d9ee5c5c7810813e, type: 3}
+  - {fileID: 21300000, guid: 6edc1418c165eb748b425e16fbf91109, type: 3}
   - {fileID: 21300000, guid: 8b7b9b3828532ca4497778498fff65ca, type: 3}
   - {fileID: 21300000, guid: c996b378b4a7be84da5850affd7a19e9, type: 3}
   - {fileID: 5099584953998228713, guid: 65d6c3d8f0653c045890a91185e6e201, type: 3}
+  - {fileID: 21300000, guid: 5b39c809f91713044b6fbf6e998a3a57, type: 3}
   - {fileID: 5498807284048355269, guid: eacfca0925568de4198c81d074c40295, type: 3}
   - {fileID: -267108659321401178, guid: eacfca0925568de4198c81d074c40295, type: 3}
   - {fileID: 6495718189872017935, guid: eacfca0925568de4198c81d074c40295, type: 3}
@@ -95,10 +102,13 @@ SpriteAtlas:
   - {fileID: -5434807687808109788, guid: fd13d9cbf1beda342a76083399e878fd, type: 3}
   - {fileID: 5615874307413563660, guid: fd13d9cbf1beda342a76083399e878fd, type: 3}
   - {fileID: 21300000, guid: 5f00e7dbc4531fc4ba4c32d20c5453c8, type: 3}
+  - {fileID: 21300000, guid: 1227450c9f27b2b4cbd95486a6b76d83, type: 3}
+  - {fileID: 21300000, guid: b62c7a4c7039fea44acb5f6144586d2c, type: 3}
   - {fileID: 4846172013353603479, guid: be74632d064b19c448482dc3c1b22a56, type: 3}
   - {fileID: -5998208836627333749, guid: be74632d064b19c448482dc3c1b22a56, type: 3}
   - {fileID: -6919862440458156023, guid: be74632d064b19c448482dc3c1b22a56, type: 3}
   - {fileID: -6422198556311735633, guid: be74632d064b19c448482dc3c1b22a56, type: 3}
+  - {fileID: 21300000, guid: 51394e1e6e50bb746b78ff86b3f82f26, type: 3}
   - {fileID: 21300000, guid: c43b405fe68fd234cab8ad92aa8007d6, type: 3}
   - {fileID: 21300000, guid: 8ba40b5f7969462409ec56ae6d0e66c3, type: 3}
   - {fileID: 92204560777879939, guid: 8b15567f47cb88646b1f1067ea87bd94, type: 3}
@@ -120,11 +130,18 @@ SpriteAtlas:
   - common_background
   - library_wall_5
   - library_wall_4
+  - library_corrider_wall_4
+  - library_corrider_wall_right
+  - library_corrider_wall_pettern
   - library_floor
   - library_pilaster_bottom
+  - library_corrider_wall_6
+  - library_corrider_wall_1
+  - library_corrider_wall_3
   - library_desk
   - library_tile
   - library_door_0
+  - library_corrider_wall_5
   - door_open_6
   - door_open_5
   - door_open_4
@@ -155,10 +172,13 @@ SpriteAtlas:
   - drawer_open_4
   - drawer_open_5
   - library_overdrawer
+  - library_corrider_stick
+  - library_corrider_wall_left
   - drawer_open_2
   - drawer_open_3
   - drawer_open_0
   - drawer_open_1
+  - library_corrider_wall_2
   - library_bookcase_ft
   - library_wall_sidedoor
   - library_pilaster_top_4
