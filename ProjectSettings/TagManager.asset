@@ -29,8 +29,8 @@ TagManager:
   - Player
   - PlayerLadderOn
   - Ladder
-  - 
-  - 
+  - GrabedPlayer
+  - LadderDefault
   - 
   - 
   - 
