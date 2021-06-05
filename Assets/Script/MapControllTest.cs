@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class MapControllTest : MonoBehaviour
 {
@@ -17,13 +18,16 @@ public class MapControllTest : MonoBehaviour
 
     [Header("MapObjects")]
     public GameObject library;
-    public SpriteRenderer[] libraryRenderers;
+    SpriteRenderer[] libraryRenderers;
+    public Tilemap[] libraryTileRenderers;
 
     public GameObject libraryHall;
-    public SpriteRenderer[] libraryHallRenderers;
+    SpriteRenderer[] libraryHallRenderers;
+    public Tilemap[] libraryHallTileRenderers;
 
     bool isEnter = false;
     SpriteRenderer[] hideRenderer, showRenderer;
+    Tilemap[] hideTileRenderer, showTileRenderer;
     GameObject hideGroup, showGroup;
     // Start is called before the first frame update
     void Start()
@@ -31,28 +35,36 @@ public class MapControllTest : MonoBehaviour
         libraryRenderers = library.GetComponentsInChildren<SpriteRenderer>();
         libraryHallRenderers = libraryHall.GetComponentsInChildren<SpriteRenderer>();
 
+        libraryTileRenderers = library.GetComponentsInChildren<Tilemap>();
+        libraryHallTileRenderers = libraryHall.GetComponentsInChildren<Tilemap>();
+
+
         if (HideMap == Maps.Library)
         {
             hideRenderer = libraryRenderers;
             hideGroup = library;
+            hideTileRenderer = libraryTileRenderers;
         }
 
         else if (HideMap == Maps.LibraryHall)
         {
             hideRenderer = libraryHallRenderers; 
             hideGroup = libraryHall;
+            hideTileRenderer = libraryHallTileRenderers;
         }
 
         if (ShowMap == Maps.Library)
         {
             showRenderer = libraryRenderers;
             showGroup = library;
+            showTileRenderer = libraryTileRenderers;
         }
 
         else if (ShowMap == Maps.LibraryHall)
         {
             showRenderer = libraryHallRenderers;
             showGroup = libraryHall;
+            showTileRenderer = libraryHallTileRenderers;
         }
     }
 
@@ -61,8 +73,8 @@ public class MapControllTest : MonoBehaviour
     {
         if(isEnter == true)
         {
-            HideAlpha(hideRenderer, hideGroup);
-            ShowAlpha(showRenderer, showGroup);
+            HideAlpha(hideRenderer, hideGroup, hideTileRenderer);
+            ShowAlpha(showRenderer, showGroup, showTileRenderer);
         }
     }
 
@@ -86,8 +98,16 @@ public class MapControllTest : MonoBehaviour
         otherMCT.enabled = true;
     }
 
-    void HideAlpha(SpriteRenderer[] renderers, GameObject group)
+    void HideAlpha(SpriteRenderer[] renderers, GameObject group, Tilemap[] tiles)
     {
+        foreach (Tilemap _sp in tiles)
+        {
+            if (_sp.color.a > 0)
+            {
+                float alphaColor = _sp.color.a - hideShowColorSpeed;
+                _sp.color = new Color(1, 1, 1, alphaColor);
+            }
+        }
 
         foreach (SpriteRenderer _sp in renderers)
         {
@@ -103,9 +123,19 @@ public class MapControllTest : MonoBehaviour
         }
     }
 
-    void ShowAlpha(SpriteRenderer[] renderers, GameObject group)
+    void ShowAlpha(SpriteRenderer[] renderers, GameObject group, Tilemap[] tiles)
     {
+
         group.SetActive(true);
+
+        foreach (Tilemap _sp in tiles)
+        {
+            if (_sp.color.a < 1)
+            {
+                float alphaColor = _sp.color.a + hideShowColorSpeed;
+                _sp.color = new Color(1, 1, 1, alphaColor);
+            }
+        }
 
         foreach (SpriteRenderer _sp in renderers)
         {
