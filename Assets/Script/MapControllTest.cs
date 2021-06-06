@@ -108,14 +108,12 @@ public class MapControllTest : MonoBehaviour
         }        
     }
 
-    private void OnDisable()
-    {
-        isEnter = false;
-    }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
-        otherMCT.enabled = true;
+        if(collision.tag == "Player")
+        {
+            otherMCT.enabled = true;
+        }
     }
 
     void HideAlpha(SpriteRenderer[] renderers, GameObject group, Tilemap[] tiles)
@@ -138,6 +136,7 @@ public class MapControllTest : MonoBehaviour
             }
             else
             {
+                isEnter = false;
                 group.SetActive(false);
             }
         }
