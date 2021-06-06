@@ -7,7 +7,7 @@ public class MapControllTest : MonoBehaviour
 {
     public enum Maps
     {
-        Library, LibraryHall
+        Library, LibraryHall, ExhibitionHall
     }
 
     [Header("DoorMain")]
@@ -19,11 +19,15 @@ public class MapControllTest : MonoBehaviour
     [Header("MapObjects")]
     public GameObject library;
     SpriteRenderer[] libraryRenderers;
-    public Tilemap[] libraryTileRenderers;
+    Tilemap[] libraryTileRenderers;
 
     public GameObject libraryHall;
     SpriteRenderer[] libraryHallRenderers;
-    public Tilemap[] libraryHallTileRenderers;
+    Tilemap[] libraryHallTileRenderers;
+
+    public GameObject ExhibitionHall;
+    SpriteRenderer[] ExhibitionHallRenderers;
+    Tilemap[] ExhibitionHallTileRenderers;
 
     bool isEnter = false;
     SpriteRenderer[] hideRenderer, showRenderer;
@@ -34,9 +38,11 @@ public class MapControllTest : MonoBehaviour
     {
         libraryRenderers = library.GetComponentsInChildren<SpriteRenderer>();
         libraryHallRenderers = libraryHall.GetComponentsInChildren<SpriteRenderer>();
+        ExhibitionHallRenderers = ExhibitionHall.GetComponentsInChildren<SpriteRenderer>();
 
         libraryTileRenderers = library.GetComponentsInChildren<Tilemap>();
         libraryHallTileRenderers = libraryHall.GetComponentsInChildren<Tilemap>();
+        ExhibitionHallTileRenderers = ExhibitionHall.GetComponentsInChildren<Tilemap>();
 
 
         if (HideMap == Maps.Library)
@@ -53,6 +59,13 @@ public class MapControllTest : MonoBehaviour
             hideTileRenderer = libraryHallTileRenderers;
         }
 
+        else if (HideMap == Maps.ExhibitionHall)
+        {
+            hideRenderer = ExhibitionHallRenderers;
+            hideGroup = ExhibitionHall;
+            hideTileRenderer = ExhibitionHallTileRenderers;
+        }
+
         if (ShowMap == Maps.Library)
         {
             showRenderer = libraryRenderers;
@@ -65,6 +78,13 @@ public class MapControllTest : MonoBehaviour
             showRenderer = libraryHallRenderers;
             showGroup = libraryHall;
             showTileRenderer = libraryHallTileRenderers;
+        }
+
+        else if (ShowMap == Maps.ExhibitionHall)
+        {
+            showRenderer = ExhibitionHallRenderers;
+            showGroup = ExhibitionHall;
+            showTileRenderer = ExhibitionHallTileRenderers;
         }
     }
 

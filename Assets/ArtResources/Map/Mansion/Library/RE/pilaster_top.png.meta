@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 9b75dbdf9943a814296ec906d1667ec3
+guid: ac6a0da4fa694414285e5171794801e0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8199850426363588318
-    second: library_carpet_0
+      213: -6077905302349395142
+    second: pilaster_top_0
   - first:
-      213: 8064220278248563989
-    second: library_carpet_1
+      213: 7821945512868984064
+    second: pilaster_top_1
   - first:
-      213: 3431204632635557939
-    second: library_carpet_2
+      213: 3774413138363151524
+    second: pilaster_top_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -132,34 +132,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: library_carpet_0
+      name: pilaster_top_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 26
-        height: 44
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: edeacb2a488bbc170800000000000000
-      internalID: 8199850426363588318
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: library_carpet_1
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 0
-        width: 1
-        height: 44
+        width: 15
+        height: 95
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,29 +146,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 515e183fd9dd9ef60800000000000000
-      internalID: 8064220278248563989
+      spriteID: a3b40036451f6aba0800000000000000
+      internalID: -6077905302349395142
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: library_carpet_2
+      name: pilaster_top_1
       rect:
         serializedVersion: 2
-        x: 27
+        x: 15
         y: 0
-        width: 26
-        height: 44
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 1
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 338caef1f661e9f20800000000000000
-      internalID: 3431204632635557939
+      spriteID: 005340360022d8c60800000000000000
+      internalID: 7821945512868984064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pilaster_top_2
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 15
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a4f3bb60c8616430800000000000000
+      internalID: 3774413138363151524
       vertices: []
       indices: 
       edges: []
