@@ -76,7 +76,12 @@ SpriteAtlas:
   - {fileID: 3118149694861610496, guid: 71ac671c64a9170468f03a5d3a383be7, type: 3}
   - {fileID: 21300000, guid: c0c7093c96e9db14c9dd9b8e26edb513, type: 3}
   - {fileID: 21300000, guid: c7d43dcd78b23f74c9bfe2d534b2d354, type: 3}
-  - {fileID: 21300000, guid: 83f48eedad64c8441b2a561b65e2135a, type: 3}
+  - {fileID: 8800601187915197517, guid: 83f48eedad64c8441b2a561b65e2135a, type: 3}
+  - {fileID: 1598928176537505782, guid: 83f48eedad64c8441b2a561b65e2135a, type: 3}
+  - {fileID: 5623254767321190320, guid: 83f48eedad64c8441b2a561b65e2135a, type: 3}
+  - {fileID: -175179824346723553, guid: 83f48eedad64c8441b2a561b65e2135a, type: 3}
+  - {fileID: 3316328728822925739, guid: 83f48eedad64c8441b2a561b65e2135a, type: 3}
+  - {fileID: 5484643937523727806, guid: 83f48eedad64c8441b2a561b65e2135a, type: 3}
   - {fileID: 21300000, guid: e0cf5dfec2dddea4eb46ad2def8f084d, type: 3}
   - {fileID: 21300000, guid: b93637ff6fe08cb41a90519068591421, type: 3}
   m_PackedSpriteNamesToIndex:
@@ -108,7 +113,12 @@ SpriteAtlas:
   - door_side_open_0
   - exhibition_hall_tile
   - exhibition_hall_display_4
-  - exhibition_hall_drawer_open
+  - exhibition_hall_drawer_open_0
+  - exhibition_hall_drawer_open_1
+  - exhibition_hall_drawer_open_2
+  - exhibition_hall_drawer_open_3
+  - exhibition_hall_drawer_open_4
+  - exhibition_hall_drawer_open_5
   - exhibition_hall_display_3
   - exhibition_hall_display_1
   m_Tag: HallAtlas
