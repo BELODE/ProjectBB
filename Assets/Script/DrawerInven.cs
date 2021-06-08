@@ -6,6 +6,7 @@ public class DrawerInven : MonoBehaviour
 {
     public int itemsCode;
     public int persent;
+    public float ItemsEndYPos;
     static public int itemSortingOrder;
 
     private MaterialManager mManager;
@@ -17,7 +18,6 @@ public class DrawerInven : MonoBehaviour
         mManager = GameObject.Find("MaterialManager").GetComponent<MaterialManager>();
         player = GameObject.Find("Player").GetComponent<PlayerMove>();
         itemS = GameObject.Find("ItemSpawner").GetComponent<ItemSpawner>();
-        itemsCode = Random.Range(0, GameObject.Find("ItemSpawner").GetComponent<ItemSpawner>().items.Length);
     }
 
     void Update()
@@ -43,6 +43,7 @@ public class DrawerInven : MonoBehaviour
         {
             itemSortingOrder = this.gameObject.GetComponent<SpriteRenderer>().sortingOrder;
             GameObject gameObject = Instantiate(itemS.items[itemsCode], GameObject.Find("Player").GetComponent<PlayerMove>().target.transform.position, Quaternion.identity) as GameObject;
+            gameObject.GetComponent<Item>().endYPos = ItemsEndYPos;
             itemsCode = -1;
         }
     }

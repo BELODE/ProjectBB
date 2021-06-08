@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
 
     float speed = 0.0002f;
     float xSpeed = 0f;
+    public float endYPos;
 
     public Vector2 upPos;
     public Vector2 endPos;
@@ -30,7 +31,7 @@ public class Item : MonoBehaviour
         {
             float lr = Random.Range(-0.6f, 0.6f);
             upPos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 0.5f);
-            endPos = new Vector2(gameObject.transform.position.x, GameObject.Find("Player").GetComponent<PlayerMove>().target.transform.parent.transform.position.y - 1.5f);
+            endPos = new Vector2(gameObject.transform.position.x, GameObject.Find("Player").GetComponent<PlayerMove>().target.transform.parent.transform.position.y - endYPos);
             upLrPos = new Vector2(gameObject.transform.position.x + lr / 2, gameObject.transform.position.y);
 
             if (lr >= 0)
