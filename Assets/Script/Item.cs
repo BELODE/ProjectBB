@@ -10,10 +10,9 @@ public class Item : MonoBehaviour
     float xSpeed = 0f;
     public float endYPos;
 
-    public Vector2 upPos;
-    public Vector2 endPos;
-    public Vector2 upLrPos;
-    public Vector2 endLrPos;
+    public Vector3 upPos;
+    public Vector3 endPos;
+    public Vector3 upLrPos;
 
     public bool up = false;
     public bool floor = false;
@@ -21,7 +20,6 @@ public class Item : MonoBehaviour
 
     void Start()
     {
-        gameObject.GetComponentInChildren<SpriteRenderer>().sortingOrder = DrawerInven.itemSortingOrder + 1;
 
         string[] str = gameObject.name.Split('_');
         items.name = str[0];
@@ -30,9 +28,9 @@ public class Item : MonoBehaviour
         if (firstDrop == true)
         {
             float lr = Random.Range(-0.6f, 0.6f);
-            upPos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 0.5f);
-            endPos = new Vector2(gameObject.transform.position.x, GameObject.Find("Player").GetComponent<PlayerMove>().target.transform.parent.transform.position.y - endYPos);
-            upLrPos = new Vector2(gameObject.transform.position.x + lr / 2, gameObject.transform.position.y);
+            upPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 0.25f, -2f);
+            endPos = new Vector3(gameObject.transform.position.x, GameObject.Find("Player").GetComponent<PlayerMove>().target.transform.parent.transform.position.y - endYPos, 0);
+            upLrPos = new Vector3(gameObject.transform.position.x + lr / 2, gameObject.transform.position.y, 0);
 
             if (lr >= 0)
                 xSpeed = 0.005f;
@@ -47,7 +45,7 @@ public class Item : MonoBehaviour
         {
             if (up == false && floor == false)
             {
-                Vector2 del = new Vector2(upLrPos.x, upPos.y);
+                Vector3 del = new Vector3(upLrPos.x, upPos.y, -2f);
                 this.transform.position = Vector3.Lerp(gameObject.transform.position, del, 0.05f);
                 if (this.transform.position.y + 0.1f >= upPos.y)
                 {
@@ -61,6 +59,10 @@ public class Item : MonoBehaviour
                 {
                     floor = true;
                 }
+            }
+            else
+            {
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, 0);
             }
         }
     }

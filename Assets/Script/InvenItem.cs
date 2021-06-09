@@ -58,7 +58,7 @@ public class InvenItem : MonoBehaviour, IDropHandler,IDragHandler,IBeginDragHand
                 }
                 else if (hit.collider == null || hit.transform.GetComponent<DrawerInven>().GetOpen() == false || (hit.collider != null && GameObject.Find("Player").GetComponent<PlayerMove>().target == null) || (hit.collider != null && GameObject.Find("Player").GetComponent<PlayerMove>().target != null && GameObject.Find("Player").GetComponent<PlayerMove>().target.tag != "Drawer"))
                 {
-                    Vector2 cPos = new Vector2(GameObject.Find("Player").transform.position.x, GameObject.Find("Player").transform.position.y - 0.4f);
+                    Vector2 cPos = new Vector2(GameObject.Find("Player").transform.position.x, GameObject.Find("Player").transform.position.y);
                     GameObject obj = Instantiate(Resources.Load("Prefabs/" + transform.parent.parent.GetComponent<Inventory>().dragItem.GetComponent<InvenItem>().items.name + "_" + transform.parent.parent.GetComponent<Inventory>().dragItem.GetComponent<InvenItem>().items.type + "_" + transform.parent.parent.GetComponent<Inventory>().dragItem.GetComponent<InvenItem>().items.code + "_"), cPos, Quaternion.identity) as GameObject;
                     obj.GetComponent<Item>().firstDrop = false;
                 }

@@ -233,12 +233,17 @@ public class PlayerMove : MonoBehaviour
                 eastGrabCol.enabled = true;
             }
 
+
+
             collisions.Clear();
             collisions.Add(_LGS.gameObject);
 
             grabbingObject = _LGS.MainObject;
             grabbingObjectParent = _LGS.Ledders;
-            speed = 2f;
+
+            transform.position = grabbingObject.transform.position - new Vector3(grabbingObjectPosition.x * ani.GetFloat("isWest"), grabbingObjectPosition.y, 0);
+
+            speed = 1f;
             ani.SetBool("Push", true);
             Push = true;
         }
@@ -345,17 +350,20 @@ public class PlayerMove : MonoBehaviour
         this.GetComponent<Rigidbody2D>().velocity = new Vector3(xMove * (speed + run), yMove * (speed + run), 0);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag != "LayerSetting" && collision.tag != "Obstacle" && Push == false && collision.tag != "Ladder")
         {
-            if (collision.tag == "Drawer"&&collision.GetComponent<SpriteRenderer>().sortingOrder>=gameObject.GetComponent<SpriteRenderer>().sortingOrder)
+            if (collision.tag == "Drawer"&& collision.transform.position.z < gameObject.transform.position.z)
             {
-
+                collisions.Remove(collision.gameObject);
             }
             else
             {
-                collisions.Add(collision.gameObject);
+                if (!collisions.Contains(collision.gameObject))
+                {
+                    collisions.Add(collision.gameObject);
+                }
             }
         }
     }

@@ -7,7 +7,6 @@ public class DrawerInven : MonoBehaviour
     public int itemsCode;
     public int persent;
     public float ItemsEndYPos;
-    static public int itemSortingOrder;
 
     private MaterialManager mManager;
     private PlayerMove player;
@@ -41,7 +40,6 @@ public class DrawerInven : MonoBehaviour
     {
         if (itemsCode != -1)
         {
-            itemSortingOrder = this.gameObject.GetComponent<SpriteRenderer>().sortingOrder;
             GameObject gameObject = Instantiate(itemS.items[itemsCode], GameObject.Find("Player").GetComponent<PlayerMove>().target.transform.position, Quaternion.identity) as GameObject;
             gameObject.GetComponent<Item>().endYPos = ItemsEndYPos;
             itemsCode = -1;
