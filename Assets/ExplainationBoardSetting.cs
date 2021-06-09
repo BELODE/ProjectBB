@@ -14,6 +14,8 @@ public class ExplainationBoardSetting : MonoBehaviour
     PointerEventData pED;
 
     public List<string> ImageName, Code, Name, Category, Ex;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,7 @@ public class ExplainationBoardSetting : MonoBehaviour
 
     }
 
-    public void ItemCheck()
+    public void ItemCheck(float xPivot)
     {
         pED.position = Input.mousePosition;
         List<RaycastResult> result = new List<RaycastResult>();
@@ -38,15 +40,21 @@ public class ExplainationBoardSetting : MonoBehaviour
         {
             if (ImageName.Contains(result[0].gameObject.GetComponent<Image>().sprite.name))
             {
+                ExplanationBar.transform.position = Input.mousePosition + new Vector3(1, 1, 0);
+                ExplanationBar.GetComponent<RectTransform>().pivot = new Vector2(xPivot, 0);
                 ExplanationBar.SetActive(true);
                 int index = ImageName.IndexOf(result[0].gameObject.GetComponent<Image>().sprite.name);
                 itemName.text = Name[index].ToString();
                 itemType.text = Category[index].ToString();
                 itemEx.text = Ex[index].ToString();
             }
+
         }
+    }
 
-
+    public void EndCheck()
+    {
+        ExplanationBar.SetActive(false);
     }
 
     void ReadItemCSV()
