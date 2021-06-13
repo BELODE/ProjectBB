@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/CreateRoomTest.unity
+    guid: 431d4e74720d6134ebe1cae9e1d0d4fe
+  - enabled: 1
+    path: Assets/Scenes/GameLobbyTest.unity
+    guid: 88fd1d663e7b1814db659f9c2967bfbd
   m_configObjects: {}
