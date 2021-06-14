@@ -8,8 +8,9 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
     public float speed = 3;
     Animator ani;
     public PhotonView photonView;
-    public GameObject PlayerLight, PlayerCamera;
-    void Start()
+    public GameObject PlayerLight, PlayerCamera, playerCanvas, paletteCamera;
+    public Text playerNameText;
+    void Awake()
     {
         if (photonView.isMine)
         {
@@ -17,6 +18,16 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
 
             PlayerLight.SetActive(true);
             PlayerCamera.SetActive(true);
+            playerCanvas.SetActive(true);
+            playerCanvas.GetComponent<Canvas>().enabled = false;
+            playerNameText.text = PhotonNetwork.playerName;
+            playerNameText.color = Color.white;
+
+        }
+        else
+        {
+            playerNameText.text = photonView.owner.name;
+            playerNameText.color = Color.cyan;
         }
 
     }
@@ -34,6 +45,22 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
                 ani.SetBool("walking", false);
                 ani.SetBool("breaking", false);
                 this.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (playerCanvas.GetComponent<Canvas>().enabled)
+                {
+                    paletteCamera.SetActive(false);
+                    PlayerCamera.SetActive(true);
+                    playerCanvas.GetComponent<Canvas>().enabled = false;
+                }
+                else
+                {
+                    paletteCamera.SetActive(true);
+                    PlayerCamera.SetActive(false);
+                    playerCanvas.GetComponent<Canvas>().enabled = true;
+                }
             }
         }
     }
