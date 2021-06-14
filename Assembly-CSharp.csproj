@@ -64,7 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ColorPalette.cs" />
+    <Compile Include="Assets\ChatTextDestroySetting.cs" />
     <Compile Include="Assets\Photon Unity Networking\Plugins\PhotonNetwork\CustomTypes.cs" />
     <Compile Include="Assets\Photon Unity Networking\Plugins\PhotonNetwork\Enums.cs" />
     <Compile Include="Assets\Photon Unity Networking\Plugins\PhotonNetwork\Extensions.cs" />
@@ -138,6 +138,7 @@
     <Compile Include="Assets\PhotonChatApi\IChatClientListener.cs" />
     <Compile Include="Assets\Script\AnimationContainer.cs" />
     <Compile Include="Assets\Script\CSV_Reader.cs" />
+    <Compile Include="Assets\Script\ColorPalette.cs" />
     <Compile Include="Assets\Script\DrawerInven.cs" />
     <Compile Include="Assets\Script\DynamicMask.cs" />
     <Compile Include="Assets\Script\ExpandableTextBox.cs" />
@@ -162,7 +163,7 @@
     <Compile Include="Assets\Script\PlayerCamera.cs" />
     <Compile Include="Assets\Script\PlayerMove.cs" />
     <Compile Include="Assets\Script\PlayerMoveForPhoton.cs" />
-    <Compile Include="Assets\SetPlayerColor.cs" />
+    <Compile Include="Assets\Script\SetPlayerColor.cs" />
     <None Include="Assets\Photon Unity Networking\changelog.txt" />
     <None Include="Assets\Photon Unity Networking\readme.txt" />
     <None Include="Assets\Photon Unity Networking\link.xml" />
