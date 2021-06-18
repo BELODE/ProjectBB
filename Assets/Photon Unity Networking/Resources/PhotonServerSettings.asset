@@ -43,4 +43,5 @@ MonoBehaviour:
   - SetColor
   - SetShadow
   - SettingPart
+  - KickedPlayerToLobby
   DisableAutoOpenWizard: 1

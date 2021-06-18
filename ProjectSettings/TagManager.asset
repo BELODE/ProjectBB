@@ -11,6 +11,7 @@ TagManager:
   - Ladder
   - Grabable
   - LayerSetting
+  - Interactable
   layers:
   - Default
   - TransparentFX
