@@ -40,11 +40,16 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        RunCheck(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        float xMove = Input.GetAxis("Horizontal");
+        float yMove = Input.GetAxis("Vertical");
+
+        Vector2 move = new Vector2(xMove, yMove).normalized;
+
+        RunCheck(move.x, move.y);
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
-            Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            Move(move.x, move.y);
         }
         else
         {
@@ -116,7 +121,7 @@ public class PlayerMove : MonoBehaviour
         string str = "";
         if (f_check == true)
         {
-            if (target.tag == "Drawer")
+            if (target.tag == "Interactable"&&target.name=="Drawer")
             {
                 if (target.GetComponent<Animator>().GetBool("Open") == true)
                 {
@@ -129,7 +134,7 @@ public class PlayerMove : MonoBehaviour
                     str = "아이템 탐색";
                 }
             }
-            else if (target.tag == "Door")
+            else if (target.tag == "Interactable" && target.name=="Door")
             {
                 if (target.GetComponent<Animator>().GetBool("Open") == true)
                 {
@@ -146,7 +151,7 @@ public class PlayerMove : MonoBehaviour
             {
                 str = "아이템 줍기";
             }
-            else if (target.tag == "Grabable")
+            else if (target.tag == "Interactable"&&target.name=="Grabable")
             {
                 if (Push == false)
                 {
@@ -167,7 +172,7 @@ public class PlayerMove : MonoBehaviour
 
     private void InteractionTarget()
     {
-        if (target.tag == "Drawer")
+        if (target.tag == "Interactable" && target.name=="Drawer")
         {
             if (target.GetComponent<Animator>().GetBool("Open") == false)
             {
@@ -178,7 +183,7 @@ public class PlayerMove : MonoBehaviour
                 target.GetComponent<Animator>().SetBool("Open", false);
             }
         }
-        else if (target.tag == "Door")
+        else if (target.tag == "Interactable" && target.name== "Door")
         {
             Animator doorAni = target.GetComponent<Animator>();
             if (doorAni.GetBool("Open") == false)
@@ -199,7 +204,7 @@ public class PlayerMove : MonoBehaviour
                 Destroy(target);
             }
         }
-        else if (target.tag == "Grabable")
+        else if (target.tag == "Interactable"&&target.name== "Grabable")
         {
             Grab();
         }
@@ -345,16 +350,14 @@ public class PlayerMove : MonoBehaviour
         float x = xMove * (speed + run) * Time.deltaTime;
         float y = yMove * (speed + run) * Time.deltaTime;
 
-        //this.transform.Translate(new Vector3(x, y, 0));
-
         this.GetComponent<Rigidbody2D>().velocity = new Vector3(xMove * (speed + run), yMove * (speed + run), 0);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag != "LayerSetting" && collision.tag != "Obstacle" && Push == false && collision.tag != "Ladder")
+        if (collision.name!="LayerSetting"&&collision.name!="Ladder" && collision.tag != "Obstacle" && Push == false)
         {
-            if (collision.tag == "Drawer"&& collision.transform.position.z < gameObject.transform.position.z)
+            if (collision.name== "Drawer" && collision.transform.position.z < gameObject.transform.position.z)
             {
                 collisions.Remove(collision.gameObject);
             }
