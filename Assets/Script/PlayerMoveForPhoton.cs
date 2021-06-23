@@ -15,6 +15,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
     GameObject target, targetValueChangeTemp, masterCanvas;
     bool hasSameNickname = false;
     public bool lockInteraction = false;
+
     void Awake()
     {
         if (photonView.isMine)
@@ -44,7 +45,10 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
         {
             if (PhotonNetwork.isMasterClient)
             {
-                masterCanvas.SetActive(true);
+                if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GameLobbyTest")
+                {
+                    masterCanvas.SetActive(true);
+                }
             }
 
             if (lockInteraction == false)
@@ -165,8 +169,8 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
         float x = xMove * (speed) * Time.deltaTime;
         float y = yMove * (speed) * Time.deltaTime;
 
-        this.transform.Translate(new Vector3(x, y, 0));
-        //this.GetComponent<Rigidbody2D>().velocity = new Vector3(xMove * (speed), yMove * (speed), 0);
+        //this.transform.Translate(new Vector3(x, y, 0));
+        this.GetComponent<Rigidbody2D>().velocity = new Vector3(xMove * (speed), yMove * (speed), 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -206,4 +210,17 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
             NickNameCheck();
         }
     }
+
+    [PunRPC]
+    void StartButtonPUN()
+    {
+        GameObject[] _GOs = GameObject.FindGameObjectsWithTag("Player");
+        foreach(GameObject go in _GOs)
+        {
+            DontDestroyOnLoad(go);
+        }
+        PhotonNetwork.LoadLevel("Map_01");
+    }
+
+
 }
