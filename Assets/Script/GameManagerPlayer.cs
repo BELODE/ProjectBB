@@ -10,14 +10,12 @@ public class GameManagerPlayer : Photon.MonoBehaviour
     public GameObject chatBox, playerListContentsBox;
     public GameObject chatBoxText, playerListContents;
     public List<GameObject> playerListPrefabs;
-    public string masterName;
     PhotonPlayer[] players;
     // Start is called before the first frame update
     void Start()
     {
         SpawnPlayer();
         roomNameText.text = PhotonNetwork.room.Name;
-        masterName = PhotonNetwork.masterClient.NickName;
         players = PhotonNetwork.playerList;
     }
 
@@ -90,5 +88,11 @@ public class GameManagerPlayer : Photon.MonoBehaviour
     public void KickPlayer(PhotonPlayer kickPlayer)
     {
         PhotonNetwork.CloseConnection(kickPlayer);
+    }
+
+    public void GameStartButton()
+    {
+        PhotonView _PV = GameObject.FindGameObjectWithTag("Player").GetComponent<PhotonView>();
+        _PV.RPC("StartButtonPUN", PhotonTargets.AllBuffered);
     }
 }

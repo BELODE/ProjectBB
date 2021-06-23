@@ -31,17 +31,15 @@ MonoBehaviour:
   - Chat
   - DestroyRpc
   - InstantiateRpc
-  - MovementForNetwork
   - PickupItemInit
   - PunPickup
   - PunPickupSimple
   - PunRespawn
   - RequestForPickupItems
   - RequestForPickupTimes
-  - OnColorSelect
-  - ColorSetting
   - SetColor
   - SetShadow
   - SettingPart
-  - KickedPlayerToLobby
+  - RPCStartButton
+  - StartButtonPUN
   DisableAutoOpenWizard: 1
