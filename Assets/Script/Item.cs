@@ -18,6 +18,8 @@ public class Item : MonoBehaviour
     public bool floor = false;
     public bool firstDrop = true;
 
+    public GameObject Parentsdrawer;
+
     void Start()
     {
 
@@ -29,7 +31,7 @@ public class Item : MonoBehaviour
         {
             float lr = Random.Range(-0.6f, 0.6f);
             upPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 0.25f, -2f);
-            endPos = new Vector3(gameObject.transform.position.x, GameObject.Find("Player").GetComponent<PlayerMove>().target.transform.parent.transform.position.y - endYPos, 0);
+            endPos = new Vector3(gameObject.transform.position.x, Parentsdrawer.transform.parent.transform.position.y - endYPos, 0);
             upLrPos = new Vector3(gameObject.transform.position.x + lr / 2, gameObject.transform.position.y, 0);
 
             if (lr >= 0)

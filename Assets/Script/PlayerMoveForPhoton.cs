@@ -8,28 +8,32 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
     public float speed = 3;
     Animator ani;
     public PhotonView photonView;
-    public GameObject PlayerLight, PlayerCamera, playerCanvas, paletteCamera;
+    public GameObject PlayerLight, PlayerCamera, CustomizeCanvas, paletteCamera, GameCanvas, target;
     public Text playerNameText;
 
     List<GameObject> collisions = new List<GameObject>();
-    GameObject target, targetValueChangeTemp, masterCanvas;
+    GameObject targetValueChangeTemp, masterCanvas;
     bool hasSameNickname = false;
     public bool lockInteraction = false;
+
+    public int randomResult;
 
     void Awake()
     {
         if (photonView.isMine)
         {
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GameLobbyTest")
+            { masterCanvas = GameObject.Find("MasterCanvas"); }
+
             NickNameCheck();
             ani = gameObject.GetComponent<Animator>();
             PlayerLight.SetActive(true);
             PlayerCamera.SetActive(true);
-            playerCanvas.SetActive(true);
-            playerCanvas.GetComponent<Canvas>().enabled = false;
+            CustomizeCanvas.SetActive(true);
+            CustomizeCanvas.GetComponent<Canvas>().enabled = false;
             playerNameText.text = PhotonNetwork.playerName;
             playerNameText.color = Color.white;
-            masterCanvas = GameObject.Find("MasterCanvas");
-            masterCanvas.SetActive(false);
+            GameCanvas.SetActive(true);
         }
         else
         {
@@ -43,11 +47,16 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
     {
         if (photonView.isMine)
         {
-            if (PhotonNetwork.isMasterClient)
+
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GameLobbyTest")
             {
-                if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GameLobbyTest")
+                if (PhotonNetwork.isMasterClient)
                 {
                     masterCanvas.SetActive(true);
+                }
+                else
+                {
+                    masterCanvas.SetActive(false);
                 }
             }
 
@@ -75,7 +84,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
 
             if(collisions.Count > 0)
             {
-                TargetSetting();
+                photonView.RPC("TargetSetting", PhotonTargets.AllBuffered);
             }
             else
             {
@@ -88,51 +97,16 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
         }
     }
 
-    void TargetSetting()
-    {
-        Vector3 distance = Vector3.zero;
-
-        for (int i = 0; i < collisions.Count; i++)
-        {
-            if(i == 0)
-            {
-                distance = gameObject.transform.position - collisions[i].transform.position;
-                target = collisions[i];
-            }
-            else
-            {
-                if(Vector3.SqrMagnitude(gameObject.transform.position - collisions[i].transform.position) < distance.sqrMagnitude)
-                {
-                    distance = gameObject.transform.position - collisions[i].transform.position;
-                    target = collisions[i];
-                }
-            }
-        }
-
-        target.GetComponent<SpriteRenderer>().material.SetInt("_OutlineOn", 1);
-        if (targetValueChangeTemp != null)
-        {
-            if (targetValueChangeTemp != target)
-            {
-                targetValueChangeTemp.GetComponent<SpriteRenderer>().material.SetInt("_OutlineOn", 0);
-                targetValueChangeTemp = target;
-            }
-        }
-        else
-        {
-            targetValueChangeTemp = target;
-        }
-    }
 
     public void Interaction()
     {
         if(target.name == "Customizing")
         {
-            if (playerCanvas.GetComponent<Canvas>().enabled)
+            if (CustomizeCanvas.GetComponent<Canvas>().enabled)
             {
                 paletteCamera.SetActive(false);
                 PlayerCamera.SetActive(true);
-                playerCanvas.GetComponent<Canvas>().enabled = false;
+                CustomizeCanvas.GetComponent<Canvas>().enabled = false;
                 lockInteraction = false;
                 Canvas[] sceneCanvas = GameObject.Find("SceneCanvas").GetComponentsInChildren<Canvas>();
                 foreach(Canvas canvas in sceneCanvas)
@@ -144,7 +118,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
             {
                 paletteCamera.SetActive(true);
                 PlayerCamera.SetActive(false);
-                playerCanvas.GetComponent<Canvas>().enabled = true;
+                CustomizeCanvas.GetComponent<Canvas>().enabled = true;
                 lockInteraction = true;
                 ani.SetFloat("x", 1);
                 ani.SetFloat("y", 0);
@@ -155,22 +129,25 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
                 }
             }
         }
+
+        else if(target.name == "Drawer")
+        {
+            photonView.RPC("DrawerItemSpawn", PhotonTargets.AllBuffered);
+        }
     }
 
 
     private void Move(float xMove,float yMove)
     {
+        Vector2 move = new Vector2(xMove, yMove).normalized;
+
         ani.SetBool("walking", true);
         ani.SetBool("breaking", true);
 
-        ani.SetFloat("x", xMove);
-        ani.SetFloat("y", yMove);
+        ani.SetFloat("x", move.x);
+        ani.SetFloat("y", move.y);
 
-        float x = xMove * (speed) * Time.deltaTime;
-        float y = yMove * (speed) * Time.deltaTime;
-
-        //this.transform.Translate(new Vector3(x, y, 0));
-        this.GetComponent<Rigidbody2D>().velocity = new Vector3(xMove * (speed), yMove * (speed), 0);
+        this.GetComponent<Rigidbody2D>().velocity = new Vector3(move.x * (speed), move.y * (speed), 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -222,5 +199,56 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
         PhotonNetwork.LoadLevel("Map_01");
     }
 
+    [PunRPC]
+    void DrawerItemSpawn()
+    {
+        if (target.GetComponent<Animator>().GetBool("Open"))
+        {
+            target.GetComponent<Animator>().SetBool("Open", false);
+        }
+        else
+        {
+            target.GetComponent<Animator>().SetBool("Open", true);
+            target.GetComponent<DrawerInven>().ItemSpawn();
+        }
+    }
 
+    [PunRPC]
+    void TargetSetting()
+    {
+        Vector3 distance = Vector3.zero;
+
+        for (int i = 0; i < collisions.Count; i++)
+        {
+            if (i == 0)
+            {
+                distance = gameObject.transform.position - collisions[i].transform.position;
+                target = collisions[i];
+            }
+            else
+            {
+                if (Vector3.SqrMagnitude(gameObject.transform.position - collisions[i].transform.position) < distance.sqrMagnitude)
+                {
+                    distance = gameObject.transform.position - collisions[i].transform.position;
+                    target = collisions[i];
+                }
+            }
+        }
+
+        target.GetComponent<SpriteRenderer>().material.SetInt("_OutlineOn", 1);
+
+        if (targetValueChangeTemp != null)
+        {
+            if (targetValueChangeTemp != target)
+            {
+                targetValueChangeTemp.GetComponent<SpriteRenderer>().material.SetInt("_OutlineOn", 0);
+                targetValueChangeTemp = target;
+            }
+        }
+
+        else
+        {
+            targetValueChangeTemp = target;
+        }
+    }
 }

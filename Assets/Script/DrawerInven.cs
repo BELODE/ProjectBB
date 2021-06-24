@@ -8,40 +8,20 @@ public class DrawerInven : MonoBehaviour
     public int persent;
     public float ItemsEndYPos;
 
-    private MaterialManager mManager;
-    private PlayerMove player;
     private ItemSpawner itemS;
 
     void Start()
     {
-        mManager = GameObject.Find("MaterialManager").GetComponent<MaterialManager>();
-        player = GameObject.Find("Player").GetComponent<PlayerMove>();
         itemS = GameObject.Find("ItemSpawner").GetComponent<ItemSpawner>();
-    }
-
-    void Update()
-    {
-        MaterialChange();
-    }
-
-    private void MaterialChange()
-    {
-        if (player.target == gameObject)
-        {
-            transform.GetComponent<SpriteRenderer>().material = mManager.change;
-        }
-        else
-        {
-            transform.GetComponent<SpriteRenderer>().material = mManager.origin;
-        }
     }
 
     public void ItemSpawn()
     {
         if (itemsCode != -1)
         {
-            GameObject gameObject = Instantiate(itemS.items[itemsCode], GameObject.Find("Player").GetComponent<PlayerMove>().target.transform.position, Quaternion.identity) as GameObject;
+            GameObject gameObject = Instantiate(itemS.items[itemsCode], this.gameObject.transform.position, Quaternion.identity);
             gameObject.GetComponent<Item>().endYPos = ItemsEndYPos;
+            gameObject.GetComponent<Item>().Parentsdrawer = this.gameObject;
             itemsCode = -1;
         }
     }

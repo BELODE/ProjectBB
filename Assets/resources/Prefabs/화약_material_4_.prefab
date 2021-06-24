@@ -46,13 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endYPos: 0
-  upPos: {x: 0, y: 0}
-  endPos: {x: 0, y: 0}
-  upLrPos: {x: 0, y: 0}
-  endLrPos: {x: 0, y: 0}
+  upPos: {x: 0, y: 0, z: 0}
+  endPos: {x: 0, y: 0, z: 0}
+  upLrPos: {x: 0, y: 0, z: 0}
   up: 0
   floor: 0
   firstDrop: 1
+  Parentsdrawer: {fileID: 0}
 --- !u!61 &-2961961956052972578
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -40,6 +40,8 @@ MonoBehaviour:
   - SetColor
   - SetShadow
   - SettingPart
-  - RPCStartButton
   - StartButtonPUN
+  - DrawerItemSpawn
+  - TargetSetting
+  - RandomInt
   DisableAutoOpenWizard: 1
