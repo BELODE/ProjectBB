@@ -65,6 +65,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ChatTextDestroySetting.cs" />
+    <Compile Include="Assets\GameManagerOnMap.cs" />
+    <Compile Include="Assets\KickPlayer.cs" />
     <Compile Include="Assets\Photon Unity Networking\Plugins\PhotonNetwork\CustomTypes.cs" />
     <Compile Include="Assets\Photon Unity Networking\Plugins\PhotonNetwork\Enums.cs" />
     <Compile Include="Assets\Photon Unity Networking\Plugins\PhotonNetwork\Extensions.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="Assets\PhotonChatApi\ChatState.cs" />
     <Compile Include="Assets\PhotonChatApi\ChatUserStatus.cs" />
     <Compile Include="Assets\PhotonChatApi\IChatClientListener.cs" />
+    <Compile Include="Assets\RoomListButton.cs" />
     <Compile Include="Assets\Script\AnimationContainer.cs" />
     <Compile Include="Assets\Script\CSV_Reader.cs" />
     <Compile Include="Assets\Script\ColorPalette.cs" />
@@ -161,6 +164,7 @@
     <Compile Include="Assets\Script\ObstacleInven.cs" />
     <Compile Include="Assets\Script\OptionPanel.cs" />
     <Compile Include="Assets\Script\PlayerCamera.cs" />
+    <Compile Include="Assets\Script\PlayerFOV.cs" />
     <Compile Include="Assets\Script\PlayerMove.cs" />
     <Compile Include="Assets\Script\PlayerMoveForPhoton.cs" />
     <Compile Include="Assets\Script\SetPlayerColor.cs" />
@@ -823,6 +827,14 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{0DCF4CDD-2195-4359-9FB9-1435CA12FDE0}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="IngameDebugConsole.Runtime.csproj">
+      <Project>{7E04CBF5-4BAE-6AFA-4E86-3F22B9FFD60E}</Project>
+      <Name>IngameDebugConsole.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="IngameDebugConsole.Editor.csproj">
+      <Project>{07C97F8E-E45C-3054-AE51-D14D6EFF2DD3}</Project>
+      <Name>IngameDebugConsole.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -720,7 +720,16 @@
       <HintPath>E:/UNITY/ProjectBB_Git/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="IngameDebugConsole.Runtime.csproj">
+      <Project>{7E04CBF5-4BAE-6AFA-4E86-3F22B9FFD60E}</Project>
+      <Name>IngameDebugConsole.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="IngameDebugConsole.Editor.csproj">
+      <Project>{07C97F8E-E45C-3054-AE51-D14D6EFF2DD3}</Project>
+      <Name>IngameDebugConsole.Editor</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -16,10 +16,13 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
     bool hasSameNickname = false;
     public bool lockInteraction = false;
 
-    public int randomResult;
+    public bool isMaster = false;
+    public int[] randomResultList;
 
     void Awake()
     {
+        randomResultList = new int[100];
+
         if (photonView.isMine)
         {
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GameLobbyTest")
@@ -40,14 +43,14 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
             playerNameText.text = photonView.owner.NickName;
             playerNameText.color = Color.cyan;
         }
-
     }
 
     void Update()
     {
+        photonView.RPC("MasterCheck", PhotonTargets.AllBuffered);
+
         if (photonView.isMine)
         {
-
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GameLobbyTest")
             {
                 if (PhotonNetwork.isMasterClient)
@@ -162,7 +165,10 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
     {
         if (collisions.Contains(collision.gameObject))
         {
-            collision.GetComponent<SpriteRenderer>().material.SetInt("_OutlineOn", 0);
+            if (photonView.isMine)
+            {
+                collision.GetComponent<SpriteRenderer>().material.SetInt("_OutlineOn", 0);
+            }
             collisions.Remove(collision.gameObject);
         }
     }
@@ -188,6 +194,8 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
         }
     }
 
+
+
     [PunRPC]
     void StartButtonPUN()
     {
@@ -202,14 +210,18 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
     [PunRPC]
     void DrawerItemSpawn()
     {
-        if (target.GetComponent<Animator>().GetBool("Open"))
+        if(target.GetComponent<DrawerInven>().isActiveNow == false) 
         {
-            target.GetComponent<Animator>().SetBool("Open", false);
-        }
-        else
-        {
-            target.GetComponent<Animator>().SetBool("Open", true);
-            target.GetComponent<DrawerInven>().ItemSpawn();
+            target.GetComponent<DrawerInven>().isActiveNow = true;
+            if (target.GetComponent<Animator>().GetBool("Open"))
+            {
+                target.GetComponent<Animator>().SetBool("Open", false);
+            }
+            else
+            {
+                target.GetComponent<Animator>().SetBool("Open", true);
+                target.GetComponent<DrawerInven>().ItemSpawn();
+            }
         }
     }
 
@@ -235,13 +247,19 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
             }
         }
 
-        target.GetComponent<SpriteRenderer>().material.SetInt("_OutlineOn", 1);
+        if (photonView.isMine)
+        {
+            target.GetComponent<SpriteRenderer>().material.SetInt("_OutlineOn", 1);
+        }
 
         if (targetValueChangeTemp != null)
         {
             if (targetValueChangeTemp != target)
             {
-                targetValueChangeTemp.GetComponent<SpriteRenderer>().material.SetInt("_OutlineOn", 0);
+                if (photonView.isMine)
+                {
+                    targetValueChangeTemp.GetComponent<SpriteRenderer>().material.SetInt("_OutlineOn", 0);
+                }
                 targetValueChangeTemp = target;
             }
         }
@@ -249,6 +267,26 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
         else
         {
             targetValueChangeTemp = target;
+        }
+    }
+
+    [PunRPC]
+    void RandomRangeInt(int randomValue, int index)
+    {
+        randomResultList[index] = randomValue;
+        Debug.Log(randomValue);
+    }
+
+    [PunRPC]
+    void MasterCheck()
+    {
+        if (photonView.owner.IsMasterClient)
+        {
+            isMaster = true;
+        }
+        else
+        {
+            isMaster = false;
         }
     }
 }

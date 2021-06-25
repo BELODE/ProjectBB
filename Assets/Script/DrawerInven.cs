@@ -7,7 +7,7 @@ public class DrawerInven : MonoBehaviour
     public int itemsCode;
     public int persent;
     public float ItemsEndYPos;
-
+    public bool isActiveNow = false;
     private ItemSpawner itemS;
 
     void Start()
@@ -39,5 +39,10 @@ public class DrawerInven : MonoBehaviour
     public void SetOpen(bool open)
     {
         transform.GetComponent<Animator>().SetBool("Open", open);
+    }
+
+    public void IsActiveNouwEnded()
+    {
+        isActiveNow = false;
     }
 }

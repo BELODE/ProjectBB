@@ -1979,7 +1979,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.729}
+  m_AnchoredPosition: {x: 0, y: 0.875}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3435789671244488499
@@ -2973,8 +2973,10 @@ MonoBehaviour:
   CustomizeCanvas: {fileID: 7499918146556568342}
   paletteCamera: {fileID: 2546209172204594336}
   GameCanvas: {fileID: 928666468673988263}
+  target: {fileID: 0}
   playerNameText: {fileID: 3828083176995531206}
   lockInteraction: 0
+  randomResult: 0
 --- !u!114 &2870306389649423600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3195,7 +3197,7 @@ MonoBehaviour:
   - {x: -0.25, y: 0.658, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 37808
+  m_InstanceId: 21452
 --- !u!1 &8140607568728039701
 GameObject:
   m_ObjectHideFlags: 0

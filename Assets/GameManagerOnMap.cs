@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManagerOnMap : MonoBehaviour
 {
     public GameObject[] Players, SpawnPoints;
-    public GameObject PlayerParents;
+    public GameObject PlayerParents, MasterPlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +20,14 @@ public class GameManagerOnMap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in Players)
+        {
+            if(player.GetComponent<PlayerMoveForPhoton>().isMaster == true)
+            {
+                MasterPlayer = player;
+            }
+        }
     }
 }

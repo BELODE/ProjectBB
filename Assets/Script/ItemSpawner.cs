@@ -2,67 +2,84 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSpawner : MonoBehaviour
+public class ItemSpawner : Photon.MonoBehaviour
 {
     public GameObject[] items;
     public List<GameObject> drawers;
     public int ItemsCount;
     private int[] drawerCount;
+    public bool settingComplete = false;
 
+    int[] randomResult;
     void Start()
-    {
-        GameObject[] gameobjectTemp = GameObject.FindGameObjectsWithTag("Interactable");
-        foreach(GameObject go in gameobjectTemp)
-        {
-            if (go.name == "Drawer")
-            {
-                drawers.Add(go);
-            }
-        }
-
+    { 
         drawerCount = new int[ItemsCount];
 
-        for(int i = 0; i < drawers.Count; i++)
-        {
-            drawers[i].GetComponent<DrawerInven>().itemsCode = -1;
-        }
-
-        for(int i = 0; i < ItemsCount; i++)
-        {
-            drawerCount[i] = Random.Range(0, drawers.Count);
-        }
-
-        NotSame();
-
-        for(int i = 0; i < ItemsCount; i++)
-        {
-            drawers[drawerCount[i]].GetComponent<DrawerInven>().itemsCode = Random.Range(0, items.Length);
-        }
-    }
-
-    private void NotSame()
-    {
-        bool same = true;
-        while (same == true)
-        {
-            for (int i = 0; i < drawerCount.Length - 1; i++)
-            {
-                if (drawerCount[i] == drawerCount[i + 1])
-                {
-                    drawerCount[i] = Random.Range(0, drawers.Count);
-                    same = true;
-                }
-                else
-                {
-                    same = false;
-                }
-            }
-        }
     }
 
     void Update()
     {
 
+        if(settingComplete == false && GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer != null)
+        {
+            settingComplete = true;
+
+            for (int i = 0; i < drawers.Count; i++)
+            {
+                drawers[i].GetComponent<DrawerInven>().itemsCode = -1;
+            }
+
+            RandomValueBeNotSame(0, drawers.Count, ItemsCount);
+            for (int i = 0; i < ItemsCount; i++)
+            {
+                int masterID = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PhotonView>().viewID;
+
+                if (PhotonNetwork.isMasterClient)
+                {
+                    PhotonView.Find(masterID).RPC("RandomRangeInt", PhotonTargets.AllBuffered, randomResult[i], i);
+                    drawerCount[i] = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PlayerMoveForPhoton>().randomResultList[i];
+                }
+                else
+                {
+                    drawerCount[i] = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PlayerMoveForPhoton>().randomResultList[i];
+                }
+            }
+
+            RandomValueBeNotSame(0, items.Length, ItemsCount);
+            for (int i = 0; i < ItemsCount; i++)
+            {
+                int masterID = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PhotonView>().viewID;
+
+                if (PhotonNetwork.isMasterClient)
+                {
+                    PhotonView.Find(masterID).RPC("RandomRangeInt", PhotonTargets.AllBuffered, randomResult[i], i + ItemsCount);
+                    drawers[drawerCount[i]].GetComponent<DrawerInven>().itemsCode = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PlayerMoveForPhoton>().randomResultList[i + ItemsCount];
+                }
+                else
+                {
+                    drawers[drawerCount[i]].GetComponent<DrawerInven>().itemsCode = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PlayerMoveForPhoton>().randomResultList[i + ItemsCount];
+                }
+            }
+        }
     }
 
+    void RandomValueBeNotSame(int min, int max, int numb)
+    {
+        var randomvalue = new List<int>();
+
+        for (int i = 0; i < max - min; i++)
+        {
+            randomvalue.Add(min + i);
+        }
+
+        randomResult = new int[numb];
+
+        for (int i = 0; i < numb; i++)
+        {
+            var index = Random.Range(0, randomvalue.Count);
+            randomResult[i] = randomvalue[index];
+            randomvalue.Remove(randomResult[i]);
+        }
+
+    }
 }

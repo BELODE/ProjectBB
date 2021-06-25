@@ -30,6 +30,7 @@ MonoBehaviour:
   RpcList:
   - Chat
   - DestroyRpc
+  - DrawerItemSpawn
   - InstantiateRpc
   - PickupItemInit
   - PunPickup
@@ -41,7 +42,9 @@ MonoBehaviour:
   - SetShadow
   - SettingPart
   - StartButtonPUN
-  - DrawerItemSpawn
   - TargetSetting
-  - RandomInt
+  - TargetCollisionExit
+  - TargetCollisionOn
+  - RandomRangeInt
+  - MasterCheck
   DisableAutoOpenWizard: 1

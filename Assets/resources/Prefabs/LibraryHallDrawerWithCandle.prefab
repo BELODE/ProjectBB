@@ -592,7 +592,7 @@ MonoBehaviour:
   - {x: -0.17495131, y: 0.27, z: 0}
   m_ShapePathHash: 1104435261
   m_Mesh: {fileID: 0}
-  m_InstanceId: 28862
+  m_InstanceId: 20312
 --- !u!61 &8104397810619046317
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -795,7 +795,7 @@ MonoBehaviour:
   - {x: 0.055000104, y: 0.3200004, z: 0}
   m_ShapePathHash: 108574741
   m_Mesh: {fileID: 0}
-  m_InstanceId: 28882
+  m_InstanceId: 20332
 --- !u!1 &8104397810334116010
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +856,7 @@ MonoBehaviour:
   - {x: -0.014999948, y: 0.33000064, z: 0}
   m_ShapePathHash: 2039714533
   m_Mesh: {fileID: 0}
-  m_InstanceId: 28888
+  m_InstanceId: 20338
 --- !u!1 &8104397810556626449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,7 +1049,7 @@ MonoBehaviour:
   - {x: 0.075000085, y: 0.15000033, z: 0}
   m_ShapePathHash: -1712506977
   m_Mesh: {fileID: 0}
-  m_InstanceId: 28900
+  m_InstanceId: 20350
 --- !u!1 &8104397811454919910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,7 +1110,7 @@ MonoBehaviour:
   - {x: -0.114999965, y: 0.26, z: 0}
   m_ShapePathHash: 199547749
   m_Mesh: {fileID: 0}
-  m_InstanceId: 28906
+  m_InstanceId: 20356
 --- !u!1 &8104397811539704901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,7 +1171,7 @@ MonoBehaviour:
   - {x: 0.085000075, y: 0.26, z: 0}
   m_ShapePathHash: 975668061
   m_Mesh: {fileID: 0}
-  m_InstanceId: 28916
+  m_InstanceId: 20366
 --- !u!1 &8104397811560757864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,7 +1185,7 @@ GameObject:
   - component: {fileID: 8104397811560757877}
   - component: {fileID: 8104397811560757866}
   - component: {fileID: 8104397811560757879}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Drawer
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -1317,7 +1317,6 @@ MonoBehaviour:
   itemsCode: 0
   persent: 0
   ItemsEndYPos: 0.2
-  player: {fileID: 0}
 --- !u!1 &8104397811613935991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,4 +1377,4 @@ MonoBehaviour:
   - {x: -0.085, y: 0.3200004, z: 0}
   m_ShapePathHash: -41877633
   m_Mesh: {fileID: 0}
-  m_InstanceId: 28930
+  m_InstanceId: 20380
