@@ -2981,6 +2981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1.5
+  runSpeed: 1.5
   photonView: {fileID: 2870306389649423600}
   PlayerLight: {fileID: 2767536365066296317}
   PlayerCamera: {fileID: 4513007635562045650}
@@ -2989,6 +2990,7 @@ MonoBehaviour:
   GameCanvas: {fileID: 928666468673988263}
   target: {fileID: 0}
   researchSlider: {fileID: 1877444128786479094}
+  runSlider: {fileID: 6688830057103225625}
   playerNameText: {fileID: 3828083176995531206}
   lockInteraction: 0
   isMaster: 0
@@ -3213,7 +3215,7 @@ MonoBehaviour:
   - {x: -0.25, y: 0.658, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 33636
+  m_InstanceId: 20794
 --- !u!1 &8140607568728039701
 GameObject:
   m_ObjectHideFlags: 0

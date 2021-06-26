@@ -6,21 +6,24 @@ using UnityEngine.UI;
 public class PlayerMoveForPhoton : Photon.MonoBehaviour
 {
     public float speed = 3;
+    public float runSpeed = 1.5f;
+    float speedIndex, runCoolDown = 3f;
     Animator ani;
     public PhotonView photonView;
-    public GameObject PlayerLight, PlayerCamera, CustomizeCanvas, paletteCamera, GameCanvas, target, researchSlider;
+    public GameObject PlayerLight, PlayerCamera, CustomizeCanvas, paletteCamera, GameCanvas, target, researchSlider, runSlider;
     public Text playerNameText;
 
     List<GameObject> collisions = new List<GameObject>();
     GameObject targetValueChangeTemp, masterCanvas;
-    bool hasSameNickname = false;
-    public bool lockInteraction = false;
+    bool hasSameNickname = false; 
+    public bool lockInteraction = false, isRunCoolDown = false;
 
     public bool isMaster = false;
     public int[] randomResultList;
 
     void Awake()
     {
+        speedIndex = speed;
         randomResultList = new int[100];
 
         for(int i = 0; i<randomResultList.Length; i++)
@@ -88,6 +91,30 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
                         Interaction();
                     }
                 }
+
+                if (Input.GetKeyDown(KeyCode.LeftShift) && ani.GetBool("walking") && runSlider.GetComponent<Slider>().value > 0 && isRunCoolDown == false)
+                {
+                    speed = speedIndex * runSpeed;
+                }
+                else if ((Input.GetKeyUp(KeyCode.LeftShift) || runSlider.GetComponent<Slider>().value <= 0) && isRunCoolDown == false)
+                {
+                    if (runSlider.GetComponent<Slider>().value <= 0)
+                    {
+                        StartCoroutine(RunCoolTimeSet());
+                    }
+                    speed = speedIndex;
+                }
+
+                if (Input.GetKey(KeyCode.LeftShift) && isRunCoolDown == false)
+                {
+                    runSlider.GetComponent<Slider>().value -= Time.deltaTime * 2;
+                }
+                else if(isRunCoolDown == false)
+                {
+                    runSlider.GetComponent<Slider>().value += Time.deltaTime * 0.5f;
+                }
+
+
             }
 
             if(collisions.Count > 0)
@@ -105,6 +132,13 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
         }
     }
 
+    IEnumerator RunCoolTimeSet()
+    {
+        isRunCoolDown = true;
+        yield return new WaitForSeconds(runCoolDown);
+        runSlider.GetComponent<Slider>().value = 0.1f;
+        isRunCoolDown = false;
+    }
 
     public void Interaction()
     {

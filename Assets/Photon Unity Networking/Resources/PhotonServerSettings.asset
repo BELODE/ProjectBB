@@ -30,6 +30,7 @@ MonoBehaviour:
   RpcList:
   - Chat
   - DestroyRpc
+  - DrawerBreak
   - DrawerItemSpawn
   - InstantiateRpc
   - MasterCheck
@@ -45,5 +46,4 @@ MonoBehaviour:
   - SettingPart
   - StartButtonPUN
   - TargetSetting
-  - DrawerBreak
   DisableAutoOpenWizard: 1
