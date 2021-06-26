@@ -32,10 +32,12 @@ MonoBehaviour:
   - DestroyRpc
   - DrawerItemSpawn
   - InstantiateRpc
+  - MasterCheck
   - PickupItemInit
   - PunPickup
   - PunPickupSimple
   - PunRespawn
+  - RandomRangeInt
   - RequestForPickupItems
   - RequestForPickupTimes
   - SetColor
@@ -43,8 +45,5 @@ MonoBehaviour:
   - SettingPart
   - StartButtonPUN
   - TargetSetting
-  - TargetCollisionExit
-  - TargetCollisionOn
-  - RandomRangeInt
-  - MasterCheck
+  - DrawerBreak
   DisableAutoOpenWizard: 1

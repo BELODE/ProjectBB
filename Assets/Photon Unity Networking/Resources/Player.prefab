@@ -570,6 +570,7 @@ GameObject:
   - component: {fileID: 18908435719069862}
   - component: {fileID: 578513304373205462}
   - component: {fileID: 2031800439173233292}
+  - component: {fileID: 90374324298644548}
   m_Layer: 12
   m_Name: ResearchSlider
   m_TagString: Untagged
@@ -717,6 +718,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &90374324298644548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877444128786479094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b71f8c00fdeac49b74f028c89980cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 7766215713288100267}
 --- !u!1 &2104280343493333191
 GameObject:
   m_ObjectHideFlags: 0
@@ -2974,9 +2988,11 @@ MonoBehaviour:
   paletteCamera: {fileID: 2546209172204594336}
   GameCanvas: {fileID: 928666468673988263}
   target: {fileID: 0}
+  researchSlider: {fileID: 1877444128786479094}
   playerNameText: {fileID: 3828083176995531206}
   lockInteraction: 0
-  randomResult: 0
+  isMaster: 0
+  randomResultList: 
 --- !u!114 &2870306389649423600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3197,7 +3213,7 @@ MonoBehaviour:
   - {x: -0.25, y: 0.658, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 21452
+  m_InstanceId: 33636
 --- !u!1 &8140607568728039701
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public class Item : MonoBehaviour
     public bool firstDrop = true;
 
     public GameObject Parentsdrawer;
+    public float lr = -1;
 
     void Start()
     {
@@ -29,15 +30,19 @@ public class Item : MonoBehaviour
         items.code = int.Parse(str[2]);
         if (firstDrop == true)
         {
-            float lr = Random.Range(-0.6f, 0.6f);
             upPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 0.25f, -2f);
             endPos = new Vector3(gameObject.transform.position.x, Parentsdrawer.transform.parent.transform.position.y - endYPos, 0);
-            upLrPos = new Vector3(gameObject.transform.position.x + lr / 2, gameObject.transform.position.y, 0);
 
-            if (lr >= 0)
-                xSpeed = 0.005f;
-            else
+            if (lr == 0)
+            {
                 xSpeed = -0.005f;
+                upLrPos = new Vector3(gameObject.transform.position.x + -0.6f / 2, gameObject.transform.position.y, 0);
+            }
+            else if(lr == 1)
+            {
+                xSpeed = 0.005f;
+                upLrPos = new Vector3(gameObject.transform.position.x + 0.6f / 2, gameObject.transform.position.y, 0);
+            }
         }
     }
 

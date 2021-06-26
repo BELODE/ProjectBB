@@ -8,6 +8,7 @@ public class DrawerInven : MonoBehaviour
     public int persent;
     public float ItemsEndYPos;
     public bool isActiveNow = false;
+    public int drawerNumbIndex;
     private ItemSpawner itemS;
 
     void Start()
@@ -19,7 +20,11 @@ public class DrawerInven : MonoBehaviour
     {
         if (itemsCode != -1)
         {
+
             GameObject gameObject = Instantiate(itemS.items[itemsCode], this.gameObject.transform.position, Quaternion.identity);
+
+            gameObject.GetComponent<Item>().lr = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PlayerMoveForPhoton>().randomResultList[(itemS.ItemsCount * 2) + drawerNumbIndex];
+
             gameObject.GetComponent<Item>().endYPos = ItemsEndYPos;
             gameObject.GetComponent<Item>().Parentsdrawer = this.gameObject;
             itemsCode = -1;
@@ -44,5 +49,14 @@ public class DrawerInven : MonoBehaviour
     public void IsActiveNouwEnded()
     {
         isActiveNow = false;
+    }
+
+    public void SettingItemDirection()
+    {
+        if (PhotonNetwork.isMasterClient)
+        {
+            int masterID = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PhotonView>().viewID;
+            PhotonView.Find(masterID).RPC("RandomRangeInt", PhotonTargets.AllBuffered, Random.Range(0, 2), (itemS.ItemsCount * 2) + drawerNumbIndex);
+        }
     }
 }

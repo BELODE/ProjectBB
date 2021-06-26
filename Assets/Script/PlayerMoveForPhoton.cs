@@ -8,7 +8,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
     public float speed = 3;
     Animator ani;
     public PhotonView photonView;
-    public GameObject PlayerLight, PlayerCamera, CustomizeCanvas, paletteCamera, GameCanvas, target;
+    public GameObject PlayerLight, PlayerCamera, CustomizeCanvas, paletteCamera, GameCanvas, target, researchSlider;
     public Text playerNameText;
 
     List<GameObject> collisions = new List<GameObject>();
@@ -22,6 +22,11 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
     void Awake()
     {
         randomResultList = new int[100];
+
+        for(int i = 0; i<randomResultList.Length; i++)
+        {
+            randomResultList[i] = -1;
+        }
 
         if (photonView.isMine)
         {
@@ -135,7 +140,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
 
         else if(target.name == "Drawer")
         {
-            photonView.RPC("DrawerItemSpawn", PhotonTargets.AllBuffered);
+            photonView.RPC("DrawerItemSpawn", PhotonTargets.AllBuffered,false);
         }
     }
 
@@ -208,22 +213,42 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
     }
 
     [PunRPC]
-    void DrawerItemSpawn()
+    void DrawerItemSpawn(bool isResearchSlider)
     {
-        if(target.GetComponent<DrawerInven>().isActiveNow == false) 
+        if (isResearchSlider == false)
         {
-            target.GetComponent<DrawerInven>().isActiveNow = true;
-            if (target.GetComponent<Animator>().GetBool("Open"))
+            if (target.GetComponent<DrawerInven>().isActiveNow == false)
             {
-                target.GetComponent<Animator>().SetBool("Open", false);
-            }
-            else
-            {
-                target.GetComponent<Animator>().SetBool("Open", true);
-                target.GetComponent<DrawerInven>().ItemSpawn();
+                target.GetComponent<DrawerInven>().isActiveNow = true;
+
+                if (target.GetComponent<Animator>().GetBool("Open"))
+                {
+                    target.GetComponent<Animator>().SetBool("Open", false);
+                }
+                else
+                {
+                    if (photonView.isMine)
+                    {
+                        researchSlider.GetComponent<Animator>().SetBool("research", true);
+                        ani.SetBool("research", true);
+                    }
+                    target.GetComponent<DrawerInven>().SettingItemDirection();
+                }
             }
         }
+        else
+        {
+            target.GetComponent<Animator>().SetBool("Open", true);
+            target.GetComponent<DrawerInven>().ItemSpawn();
+        }
     }
+
+    [PunRPC]
+    void DrawerBreak()
+    {
+        target.GetComponent<DrawerInven>().IsActiveNouwEnded();
+    }
+
 
     [PunRPC]
     void TargetSetting()
