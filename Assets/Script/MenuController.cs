@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class MenuController : MonoBehaviour
+public class MenuController : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private string versionName = "0.1";
     [SerializeField] private GameObject userNameMenu, connectPanel, startButton;
     [SerializeField] private InputField userNameInput, createGameInput, joinGameInput;
     public List<string> roomList;
     public GameObject joinListButton,joinListButtonParents;
-
+    public List<string> roomNames;
     // Start is called before the first frame update
     void Awake()
     {
-        PhotonNetwork.ConnectUsingSettings(versionName);
+        PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.AutomaticallySyncScene = false;
     }
 
     // Update is called once per frame
@@ -28,10 +30,18 @@ public class MenuController : MonoBehaviour
 
     }
 
-    public void MakeRoomList()
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        RoomInfo[] roomInfo;
-        roomInfo = PhotonNetwork.GetRoomList();
+        foreach (RoomInfo ri in roomList)
+        {
+            roomNames.Add(ri.Name);
+        }
+
+        MakeRoomList(roomList);
+    }
+
+    public void MakeRoomList(List<RoomInfo> roomInfo)
+    {
         roomList.Clear();
         Button[] buttons = joinListButtonParents.GetComponentsInChildren<Button>();
 
@@ -42,28 +52,30 @@ public class MenuController : MonoBehaviour
 
         foreach (RoomInfo ri in roomInfo)
         {
-            if (!roomList.Contains(ri.Name))
+            if (ri.IsOpen)
             {
-                roomList.Add(ri.Name);
-                GameObject JoinButton = Instantiate(joinListButton, joinListButtonParents.transform);
-                Text[] texts = JoinButton.GetComponentsInChildren<Text>();
-                foreach(Text tx in texts)
+                if (!roomList.Contains(ri.Name))
                 {
-                    if(tx.name == "RoomTitle")
+                    roomList.Add(ri.Name);
+                    GameObject JoinButton = Instantiate(joinListButton, joinListButtonParents.transform);
+                    Text[] texts = JoinButton.GetComponentsInChildren<Text>();
+                    foreach (Text tx in texts)
                     {
-                        tx.text = ri.Name;
-                    }
-                    else
-                    {
-                        tx.text = ri.PlayerCount.ToString() + "/" + ri.MaxPlayers;
+                        if (tx.name == "RoomTitle")
+                        {
+                            tx.text = ri.Name;
+                        }
+                        else
+                        {
+                            tx.text = ri.PlayerCount.ToString() + "/" + ri.MaxPlayers;
+                        }
                     }
                 }
             }
-
         }
     }
 
-    void OnConnectedToMaster()
+    public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby(TypedLobby.Default);
         Debug.Log("Connected");
@@ -108,18 +120,12 @@ public class MenuController : MonoBehaviour
     public void SetUserName()
     {
         userNameMenu.SetActive(false);
-        PhotonNetwork.playerName = userNameInput.text;
-        MakeRoomList();
+        PhotonNetwork.NickName = userNameInput.text;
     }
 
     public void CreateGame()
     {
-        PhotonNetwork.CreateRoom(createGameInput.text, new RoomOptions() { maxPlayers = 10 }, null);
-
-        if (!PhotonNetwork.inRoom)
-        {
-            Debug.Log("fail to create room");           
-        }
+        PhotonNetwork.CreateRoom(createGameInput.text, new RoomOptions() { MaxPlayers = 10 }, null);
     }
 
     public void JoinGame()
@@ -132,7 +138,7 @@ public class MenuController : MonoBehaviour
         PhotonNetwork.JoinRoom(text);
     }
 
-    void OnJoinedRoom()
+    public override void OnJoinedRoom()
     {
         PhotonNetwork.LoadLevel("GameLobbyTest");
     }

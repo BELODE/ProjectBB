@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class SetPlayerColor : Photon.MonoBehaviour
+public class SetPlayerColor : MonoBehaviour
 {
     public int partSetting = 0;
     public Toggle shadowColorToggle;
@@ -31,16 +32,16 @@ public class SetPlayerColor : Photon.MonoBehaviour
     public void PUNSetColor(Color color)
     {
         Vector3 colorTemp = new Vector3(color.r, color.g, color.b);
-        photonView.RPC("SetColor", PhotonTargets.AllBuffered, colorTemp);
+        photonView.RPC("SetColor", RpcTarget.AllBuffered, colorTemp);
     }
     public void PUNSetShadow(bool color)
     {
-        photonView.RPC("SetShadow", PhotonTargets.AllBuffered, color);
+        photonView.RPC("SetShadow", RpcTarget.AllBuffered, color);
     }
 
     public void PUNPartSetting(int index)
     {
-        photonView.RPC("SettingPart", PhotonTargets.AllBuffered, index);
+        photonView.RPC("SettingPart", RpcTarget.AllBuffered, index);
     }
 
     [PunRPC]

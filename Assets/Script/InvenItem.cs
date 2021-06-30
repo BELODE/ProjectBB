@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Photon.Pun;
 
 public class InvenItem : MonoBehaviour, IDropHandler,IDragHandler,IBeginDragHandler,IEndDragHandler
 {
     public Items items = new Items();
     public int num;
-
+    public GameObject player;
+    public int exPanel_x_Pivot;
     void Start()
     {
 
@@ -47,20 +49,18 @@ public class InvenItem : MonoBehaviour, IDropHandler,IDragHandler,IBeginDragHand
             if (eventData.pointerEnter == null && items.name != null)
             {
                 Vector2 mos = Input.mousePosition;
-                Vector2 dir = Camera.main.ScreenToWorldPoint(mos);
+                Vector2 dir = player.GetComponent<PlayerMoveForPhoton>().PlayerCamera.GetComponent<Camera>().ScreenToWorldPoint(mos);
 
                 RaycastHit2D hit = Physics2D.Raycast(dir, Vector2.zero, 0f);
 
-                if (hit.collider != null && hit.transform.name == "Drawer" && GameObject.Find("Player").GetComponent<PlayerMove>().target != null && GameObject.Find("Player").GetComponent<PlayerMove>().target.name == "Drawer" && hit.transform.GetComponent<DrawerInven>().GetOpen() == true)
+                if (hit.collider != null && hit.transform.name == "Drawer" && player.GetComponent<PlayerMove>().target != null && player.GetComponent<PlayerMove>().target.name == "Drawer" && hit.transform.GetComponent<DrawerInven>().GetOpen() == true)
                 {
                     hit.transform.GetComponent<DrawerInven>().ItemIn(transform.parent.parent.GetComponent<Inventory>().dragItem.GetComponent<InvenItem>().items.code);
                     hit.transform.GetComponent<DrawerInven>().SetOpen(false);
                 }
                 else
                 {
-                    Vector2 cPos = new Vector2(GameObject.Find("Player").transform.position.x, GameObject.Find("Player").transform.position.y);
-                    GameObject obj = Instantiate(Resources.Load("Prefabs/" + transform.parent.parent.GetComponent<Inventory>().dragItem.GetComponent<InvenItem>().items.name + "_" + transform.parent.parent.GetComponent<Inventory>().dragItem.GetComponent<InvenItem>().items.type + "_" + transform.parent.parent.GetComponent<Inventory>().dragItem.GetComponent<InvenItem>().items.code + "_"), cPos, Quaternion.identity) as GameObject;
-                    obj.GetComponent<Item>().firstDrop = false;
+                    player.GetComponent<PhotonView>().RPC("ItemSpawn", RpcTarget.AllBuffered, "Prefabs/" + transform.parent.parent.GetComponent<Inventory>().dragItem.GetComponent<InvenItem>().items.name + "_" + transform.parent.parent.GetComponent<Inventory>().dragItem.GetComponent<InvenItem>().items.type + "_" + transform.parent.parent.GetComponent<Inventory>().dragItem.GetComponent<InvenItem>().items.code + "_");
                 }
 
                 items.name = null;

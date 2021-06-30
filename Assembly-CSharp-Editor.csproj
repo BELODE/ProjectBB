@@ -285,9 +285,6 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
-    <Reference Include="Photon3Unity3D">
-      <HintPath>E:/UNITY/ProjectBB_Git/Assets/Plugins/Photon3Unity3D.dll</HintPath>
-    </Reference>
     <Reference Include="websocket-sharp">
       <HintPath>E:/UNITY/ProjectBB_Git/Assets/Plugins/WebSocket/websocket-sharp.dll</HintPath>
     </Reference>

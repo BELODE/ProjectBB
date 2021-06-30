@@ -28,7 +28,7 @@ public class Inventory : MonoBehaviour
         items[nowBlank].items.name = item.items.name;
         items[nowBlank].items.type = item.items.type;
         items[nowBlank].items.code = item.items.code;
-        items[nowBlank].gameObject.GetComponent<Image>().sprite = item.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
+        items[nowBlank].gameObject.GetComponent<Image>().sprite = item.GetComponent<SpriteRenderer>().sprite;
         nowBlank++;
     }
 

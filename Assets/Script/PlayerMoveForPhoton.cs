@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class PlayerMoveForPhoton : Photon.MonoBehaviour
+public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
 {
     public float speed = 3;
     public float runSpeed = 1.5f;
     float speedIndex, runCoolDown = 3f;
     Animator ani;
     public PhotonView photonView;
-    public GameObject PlayerLight, PlayerCamera, CustomizeCanvas, paletteCamera, GameCanvas, target, researchSlider, runSlider;
+    public GameObject PlayerLight, PlayerCamera, CustomizeCanvas, paletteCamera, GameCanvas, target, researchSlider, runSlider, interactionTextBox, alwaysOnCanvas;
     public Text playerNameText;
-
+    public Inventory inven;
+    public bool isGameStarted = false;
     List<GameObject> collisions = new List<GameObject>();
     GameObject targetValueChangeTemp, masterCanvas;
     bool hasSameNickname = false; 
@@ -31,7 +34,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
             randomResultList[i] = -1;
         }
 
-        if (photonView.isMine)
+        if (photonView.IsMine)
         {
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GameLobbyTest")
             { masterCanvas = GameObject.Find("MasterCanvas"); }
@@ -42,26 +45,26 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
             PlayerCamera.SetActive(true);
             CustomizeCanvas.SetActive(true);
             CustomizeCanvas.GetComponent<Canvas>().enabled = false;
-            playerNameText.text = PhotonNetwork.playerName;
+            alwaysOnCanvas.SetActive(true);
+            playerNameText.text = PhotonNetwork.NickName;
             playerNameText.color = Color.white;
-            GameCanvas.SetActive(true);
         }
         else
         {
-            playerNameText.text = photonView.owner.NickName;
+            playerNameText.text = photonView.Owner.NickName;
             playerNameText.color = Color.cyan;
         }
     }
 
     void Update()
     {
-        photonView.RPC("MasterCheck", PhotonTargets.AllBuffered);
+        photonView.RPC("MasterCheck", RpcTarget.AllBuffered);
 
-        if (photonView.isMine)
+        if (photonView.IsMine)
         {
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GameLobbyTest")
             {
-                if (PhotonNetwork.isMasterClient)
+                if (PhotonNetwork.IsMasterClient)
                 {
                     masterCanvas.SetActive(true);
                 }
@@ -71,8 +74,11 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
                 }
             }
 
+
             if (lockInteraction == false)
             {
+                F_Check();
+
                 if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
                 {
                     Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -88,38 +94,45 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
                 {
                     if (target != null)
                     {
-                        Interaction();
+                        if (target.tag == "Interactable")
+                        {
+                            Interaction();
+                        }
+                        else if(target.tag == "Item")
+                        {
+                            ItemFarming();
+                        }
                     }
                 }
-
-                if (Input.GetKeyDown(KeyCode.LeftShift) && ani.GetBool("walking") && runSlider.GetComponent<Slider>().value > 0 && isRunCoolDown == false)
+                if (isGameStarted == true)
                 {
-                    speed = speedIndex * runSpeed;
-                }
-                else if ((Input.GetKeyUp(KeyCode.LeftShift) || runSlider.GetComponent<Slider>().value <= 0) && isRunCoolDown == false)
-                {
-                    if (runSlider.GetComponent<Slider>().value <= 0)
+                    if (Input.GetKeyDown(KeyCode.LeftShift) && ani.GetBool("walking") && runSlider.GetComponent<Slider>().value > 0 && isRunCoolDown == false)
                     {
-                        StartCoroutine(RunCoolTimeSet());
+                        speed = speedIndex * runSpeed;
                     }
-                    speed = speedIndex;
-                }
+                    else if ((Input.GetKeyUp(KeyCode.LeftShift) || runSlider.GetComponent<Slider>().value <= 0) && isRunCoolDown == false)
+                    {
+                        if (runSlider.GetComponent<Slider>().value <= 0)
+                        {
+                            StartCoroutine(RunCoolTimeSet());
+                        }
+                        speed = speedIndex;
+                    }
 
-                if (Input.GetKey(KeyCode.LeftShift) && isRunCoolDown == false)
-                {
-                    runSlider.GetComponent<Slider>().value -= Time.deltaTime * 2;
+                    if (Input.GetKey(KeyCode.LeftShift) && isRunCoolDown == false && ani.GetBool("walking"))
+                    {
+                        runSlider.GetComponent<Slider>().value -= Time.deltaTime * 2;
+                    }
+                    else if (isRunCoolDown == false)
+                    {
+                        runSlider.GetComponent<Slider>().value += Time.deltaTime * 0.5f;
+                    }
                 }
-                else if(isRunCoolDown == false)
-                {
-                    runSlider.GetComponent<Slider>().value += Time.deltaTime * 0.5f;
-                }
-
-
             }
 
             if(collisions.Count > 0)
             {
-                photonView.RPC("TargetSetting", PhotonTargets.AllBuffered);
+                photonView.RPC("TargetSetting", RpcTarget.AllBuffered);
             }
             else
             {
@@ -128,7 +141,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
         }
         else
         {
-            playerNameText.text = photonView.owner.NickName;
+            playerNameText.text = photonView.Owner.NickName;
         }
     }
 
@@ -142,7 +155,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
 
     public void Interaction()
     {
-        if(target.name == "Customizing")
+        if (target.name == "Customizing")
         {
             if (CustomizeCanvas.GetComponent<Canvas>().enabled)
             {
@@ -150,8 +163,9 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
                 PlayerCamera.SetActive(true);
                 CustomizeCanvas.GetComponent<Canvas>().enabled = false;
                 lockInteraction = false;
+                alwaysOnCanvas.SetActive(true);
                 Canvas[] sceneCanvas = GameObject.Find("SceneCanvas").GetComponentsInChildren<Canvas>();
-                foreach(Canvas canvas in sceneCanvas)
+                foreach (Canvas canvas in sceneCanvas)
                 {
                     canvas.enabled = true;
                 }
@@ -162,6 +176,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
                 PlayerCamera.SetActive(false);
                 CustomizeCanvas.GetComponent<Canvas>().enabled = true;
                 lockInteraction = true;
+                alwaysOnCanvas.SetActive(false);
                 ani.SetFloat("x", 1);
                 ani.SetFloat("y", 0);
                 Canvas[] sceneCanvas = GameObject.Find("SceneCanvas").GetComponentsInChildren<Canvas>();
@@ -172,12 +187,59 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
             }
         }
 
-        else if(target.name == "Drawer")
+        else if (target.name == "Drawer")
         {
-            photonView.RPC("DrawerItemSpawn", PhotonTargets.AllBuffered,false);
+            photonView.RPC("DrawerItemSpawn", RpcTarget.AllBuffered, false);
         }
     }
 
+    private void F_Check()
+    {
+        string str = "";
+        if (target != null)
+        {
+            if (target.tag == "Interactable" && target.name == "Customizing")
+            {
+                str = "캐릭터 꾸미기";
+            }
+            else if (target.tag == "Interactable" && target.name == "Drawer")
+            {
+                if (target.GetComponent<Animator>().GetBool("Open") == true)
+                {
+
+                    str = "서랍 닫기";
+                }
+                else
+                {
+
+                    str = "아이템 탐색";
+                }
+            }
+            else if (target.tag == "Item")
+            {
+                str = "아이템 줍기";
+            }
+            interactionTextBox.transform.GetComponentInChildren<Text>().text = str;
+            interactionTextBox.SetActive(true);
+        }
+        else
+        {
+            if (interactionTextBox.activeInHierarchy == true)
+            {
+                interactionTextBox.GetComponent<Animator>().SetTrigger("Finish");
+            }
+        }
+    }
+
+    public void ItemFarming()
+    {
+        inven.InvenCheck();
+        if (inven.invenFull == false)
+        {
+            inven.TakeItem(target);
+            photonView.RPC("ItemFarmingRPC", RpcTarget.AllBuffered);
+        }
+    }
 
     private void Move(float xMove,float yMove)
     {
@@ -194,7 +256,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Interactable")
+        if (collision.tag == "Interactable" || collision.tag == "Item")
         {
             collisions.Add(collision.gameObject);  
         }
@@ -204,7 +266,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
     {
         if (collisions.Contains(collision.gameObject))
         {
-            if (photonView.isMine)
+            if (photonView.IsMine)
             {
                 collision.GetComponent<SpriteRenderer>().material.SetInt("_OutlineOn", 0);
             }
@@ -212,28 +274,35 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
         }
     }
 
+    private void OnLevelWasLoaded(int level)
+    {
+        if(level > 1)
+        {
+            GameCanvas.SetActive(true);
+            isGameStarted = true;
+        }
+    }
+
     void NickNameCheck()
     {
-        string beforeNickName = PhotonNetwork.playerName;
-        foreach (PhotonPlayer _pp in PhotonNetwork.playerList)
+        string beforeNickName = PhotonNetwork.NickName;
+        foreach (Player _pp in PhotonNetwork.PlayerList)
         {
-            if(PhotonNetwork.playerName == _pp.NickName)
+            if(PhotonNetwork.NickName == _pp.NickName)
             {
                 if(hasSameNickname == true)
                 {
-                    PhotonNetwork.playerName = PhotonNetwork.playerName + "_1";
+                    PhotonNetwork.NickName = PhotonNetwork.NickName + "_1";
                 }
                 hasSameNickname = true;
             }
         }
-        if(beforeNickName != PhotonNetwork.playerName)
+        if(beforeNickName != PhotonNetwork.NickName)
         {
             hasSameNickname = false;
             NickNameCheck();
         }
     }
-
-
 
     [PunRPC]
     void StartButtonPUN()
@@ -261,7 +330,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
                 }
                 else
                 {
-                    if (photonView.isMine)
+                    if (photonView.IsMine)
                     {
                         researchSlider.GetComponent<Animator>().SetBool("research", true);
                         ani.SetBool("research", true);
@@ -283,6 +352,19 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
         target.GetComponent<DrawerInven>().IsActiveNouwEnded();
     }
 
+    [PunRPC]
+    void ItemFarmingRPC()
+    {
+        Destroy(target);
+    }
+
+    [PunRPC]
+    void ItemSpawn(string itemName)
+    {
+        Vector2 cPos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+        GameObject obj = Instantiate(Resources.Load(itemName), cPos, Quaternion.identity) as GameObject;
+        obj.GetComponent<Item>().firstDrop = false;
+    }
 
     [PunRPC]
     void TargetSetting()
@@ -306,7 +388,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
             }
         }
 
-        if (photonView.isMine)
+        if (photonView.IsMine)
         {
             target.GetComponent<SpriteRenderer>().material.SetInt("_OutlineOn", 1);
         }
@@ -315,7 +397,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
         {
             if (targetValueChangeTemp != target)
             {
-                if (photonView.isMine)
+                if (photonView.IsMine)
                 {
                     targetValueChangeTemp.GetComponent<SpriteRenderer>().material.SetInt("_OutlineOn", 0);
                 }
@@ -339,7 +421,7 @@ public class PlayerMoveForPhoton : Photon.MonoBehaviour
     [PunRPC]
     void MasterCheck()
     {
-        if (photonView.owner.IsMasterClient)
+        if (photonView.Owner.IsMasterClient)
         {
             isMaster = true;
         }

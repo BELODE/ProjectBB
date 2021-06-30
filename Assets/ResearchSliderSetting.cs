@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 public class ResearchSliderSetting : MonoBehaviour
 {
     public GameObject player;
@@ -18,13 +18,13 @@ public class ResearchSliderSetting : MonoBehaviour
         {
             gameObject.GetComponent<Animator>().SetBool("research", false);
             player.GetComponent<Animator>().SetBool("research", false);
-            player.GetComponent<PhotonView>().RPC("DrawerBreak", PhotonTargets.AllBuffered);
+            player.GetComponent<PhotonView>().RPC("DrawerBreak", RpcTarget.AllBuffered);
         }
     }
 
     public void SliderEndPoint()
     {
-        player.GetComponent<PhotonView>().RPC("DrawerItemSpawn", PhotonTargets.AllBuffered,true);
+        player.GetComponent<PhotonView>().RPC("DrawerItemSpawn", RpcTarget.AllBuffered,true);
         gameObject.GetComponent<Animator>().SetBool("research", false);
         player.GetComponent<Animator>().SetBool("research", false);
     }

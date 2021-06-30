@@ -27,34 +27,41 @@ public class ExplainationBoardSetting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    public void ItemCheck(float xPivot)
-    {
         pED.position = Input.mousePosition;
         List<RaycastResult> result = new List<RaycastResult>();
         graphicRaycaster.Raycast(pED, result);
 
-        if(result.Count != 0)
+        if (result.Count != 0)
         {
-            if (ImageName.Contains(result[0].gameObject.GetComponent<Image>().sprite.name))
+            foreach (RaycastResult _rr in result)
             {
-                ExplanationBar.transform.position = Input.mousePosition + new Vector3(1, 1, 0);
-                ExplanationBar.GetComponent<RectTransform>().pivot = new Vector2(xPivot, 0);
-                ExplanationBar.SetActive(true);
-                int index = ImageName.IndexOf(result[0].gameObject.GetComponent<Image>().sprite.name);
-                itemName.text = Name[index].ToString();
-                itemType.text = Category[index].ToString();
-                itemEx.text = Ex[index].ToString();
+                if (_rr.gameObject.GetComponent<Image>())
+                {
+                    if (ImageName.Contains(_rr.gameObject.GetComponent<Image>().sprite.name))
+                    {
+                        ExplanationBar.transform.position = Input.mousePosition + new Vector3(1, 1, 0);
+                        ExplanationBar.SetActive(true);
+                        ExplanationBar.GetComponent<RectTransform>().pivot = new Vector2(_rr.gameObject.GetComponent<InvenItem>().exPanel_x_Pivot, 0);
+                        int index = ImageName.IndexOf(_rr.gameObject.GetComponent<Image>().sprite.name);
+                        itemName.text = Name[index].ToString();
+                        itemType.text = Category[index].ToString();
+                        itemEx.text = Ex[index].ToString();
+                    }
+                    else
+                    {
+                        ExplanationBar.SetActive(false);
+                    }
+                }
+                else
+                {
+                    ExplanationBar.SetActive(false);
+                }
             }
-
         }
-    }
-
-    public void EndCheck()
-    {
-        ExplanationBar.SetActive(false);
+        else
+        {
+            ExplanationBar.SetActive(false);
+        }
     }
 
     void ReadItemCSV()

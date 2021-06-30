@@ -2,37 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class GameManagerPlayer : Photon.MonoBehaviour
+public class GameManagerPlayer : MonoBehaviourPunCallbacks
 {
     public GameObject PlayerPrefab;
     public Text PingText, roomNameText, playerCountText;
     public GameObject chatBox, playerListContentsBox;
     public GameObject chatBoxText, playerListContents;
     public List<GameObject> playerListPrefabs;
-    PhotonPlayer[] players;
     // Start is called before the first frame update
     void Start()
     {
         SpawnPlayer();
-        roomNameText.text = PhotonNetwork.room.Name;
-        players = PhotonNetwork.playerList;
+        if (PhotonNetwork.InRoom)
+        {
+            roomNameText.text = PhotonNetwork.CurrentRoom.Name;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(PhotonNetwork.room == null)
+        if(PhotonNetwork.CurrentRoom == null)
         {
             PhotonNetwork.LoadLevel("CreateRoomTest");
         }
-
-        if(players != PhotonNetwork.playerList)
+        if (PhotonNetwork.InRoom)
         {
-            SettingKickPlayerBox();
-            players = PhotonNetwork.playerList;
+            playerCountText.text = PhotonNetwork.CurrentRoom.PlayerCount.ToString() + "/" + PhotonNetwork.CurrentRoom.MaxPlayers.ToString();
         }
-        playerCountText.text = PhotonNetwork.room.PlayerCount.ToString() + "/" + PhotonNetwork.room.MaxPlayers.ToString();
         PingText.text = PhotonNetwork.GetPing().ToString();
     }
 
@@ -47,17 +47,18 @@ public class GameManagerPlayer : Photon.MonoBehaviour
         PhotonNetwork.LoadLevel("CreateRoomTest");
     }
 
-    void OnPhotonPlayerConnected(PhotonPlayer player)
+    public override void OnPlayerEnteredRoom(Player player)
     {
-
+        SettingKickPlayerBox();
         GameObject obj = Instantiate(chatBoxText, new Vector2(0, 0), Quaternion.identity);
         obj.transform.SetParent(chatBox.transform, false);
         obj.GetComponent<Text>().text = player.NickName + " joined the game";
         obj.GetComponent<Text>().color = Color.green;
     }
 
-    void OnPhotonPlayerDisconnected(PhotonPlayer player)
+    public override void OnPlayerLeftRoom(Player player)
     {
+        SettingKickPlayerBox();
         GameObject obj = Instantiate(chatBoxText, new Vector2(0, 0), Quaternion.identity);
         obj.transform.SetParent(chatBox.transform, false);
         obj.GetComponent<Text>().text = player.NickName + " left the game";
@@ -72,10 +73,11 @@ public class GameManagerPlayer : Photon.MonoBehaviour
             {
                 Destroy(_go);
             }
+            playerListPrefabs.Clear();
         }
-        foreach (PhotonPlayer _pp in PhotonNetwork.playerList)
+        foreach (Player _pp in PhotonNetwork.PlayerList)
         {
-            if (_pp != PhotonNetwork.masterClient)
+            if (_pp != PhotonNetwork.MasterClient)
             {
                 GameObject _go = Instantiate(playerListContents, playerListContentsBox.transform);
                 playerListPrefabs.Add(_go);
@@ -85,14 +87,19 @@ public class GameManagerPlayer : Photon.MonoBehaviour
         
     }
 
-    public void KickPlayer(PhotonPlayer kickPlayer)
+    public void KickPlayer(Player kickPlayer)
     {
         PhotonNetwork.CloseConnection(kickPlayer);
     }
 
     public void GameStartButton()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+        }
+        Debug.Log(PhotonNetwork.CurrentRoom.IsOpen);
         PhotonView _PV = GameObject.FindGameObjectWithTag("Player").GetComponent<PhotonView>();
-        _PV.RPC("StartButtonPUN", PhotonTargets.AllBuffered);
+        _PV.RPC("StartButtonPUN", RpcTarget.AllBuffered);
     }
 }

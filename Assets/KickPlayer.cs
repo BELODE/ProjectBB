@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Photon.Realtime;
 public class KickPlayer : MonoBehaviour
 {
     public Text playerName;
-    public PhotonPlayer _PP;
+    public Player _PP;
     // Start is called before the first frame update
     void Start()
     {

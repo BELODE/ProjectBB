@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Realtime;
+using Photon.Pun;
 
 public class DrawerInven : MonoBehaviour
 {
@@ -53,10 +55,10 @@ public class DrawerInven : MonoBehaviour
 
     public void SettingItemDirection()
     {
-        if (PhotonNetwork.isMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
-            int masterID = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PhotonView>().viewID;
-            PhotonView.Find(masterID).RPC("RandomRangeInt", PhotonTargets.AllBuffered, Random.Range(0, 2), (itemS.ItemsCount * 2) + drawerNumbIndex);
+            int masterID = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PhotonView>().ViewID;
+            PhotonView.Find(masterID).RPC("RandomRangeInt", RpcTarget.AllBuffered, Random.Range(0, 2), (itemS.ItemsCount * 2) + drawerNumbIndex);
         }
     }
 }

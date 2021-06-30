@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
-
+using Photon.Pun;
 [Serializable]
 public class ColorEvent : UnityEvent<Color> { }
-public class ColorPalette : Photon.MonoBehaviour
+public class ColorPalette : MonoBehaviour
 {
     public ColorEvent onColorPreview;
     public ColorEvent onColorSelect;
@@ -27,7 +27,7 @@ public class ColorPalette : Photon.MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (photonView.isMine)
+        if (photonView.IsMine)
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(rect, Input.mousePosition))
             {

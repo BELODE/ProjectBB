@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class ItemSpawner : Photon.MonoBehaviour
+using Photon.Pun;
+public class ItemSpawner : MonoBehaviour
 {
     public GameObject[] items;
     public List<GameObject> drawers;
@@ -32,11 +32,11 @@ public class ItemSpawner : Photon.MonoBehaviour
             RandomValueBeNotSame(0, drawers.Count, ItemsCount);
             for (int i = 0; i < ItemsCount; i++)
             {
-                int masterID = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PhotonView>().viewID;
+                int masterID = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PhotonView>().ViewID;
 
-                if (PhotonNetwork.isMasterClient)
+                if (PhotonNetwork.IsMasterClient)
                 {
-                    PhotonView.Find(masterID).RPC("RandomRangeInt", PhotonTargets.AllBuffered, randomResult[i], i);
+                    PhotonView.Find(masterID).RPC("RandomRangeInt", RpcTarget.AllBuffered, randomResult[i], i);
                     drawerCount[i] = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PlayerMoveForPhoton>().randomResultList[i];
                 }
                 else
@@ -48,11 +48,11 @@ public class ItemSpawner : Photon.MonoBehaviour
             RandomValueBeNotSame(0, items.Length, ItemsCount);
             for (int i = 0; i < ItemsCount; i++)
             {
-                int masterID = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PhotonView>().viewID;
+                int masterID = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PhotonView>().ViewID;
 
-                if (PhotonNetwork.isMasterClient)
+                if (PhotonNetwork.IsMasterClient)
                 {
-                    PhotonView.Find(masterID).RPC("RandomRangeInt", PhotonTargets.AllBuffered, randomResult[i], i + ItemsCount);
+                    PhotonView.Find(masterID).RPC("RandomRangeInt", RpcTarget.AllBuffered, randomResult[i], i + ItemsCount);
                     drawers[drawerCount[i]].GetComponent<DrawerInven>().itemsCode = GameObject.Find("GameManager").GetComponent<GameManagerOnMap>().MasterPlayer.GetComponent<PlayerMoveForPhoton>().randomResultList[i + ItemsCount];
                 }
                 else

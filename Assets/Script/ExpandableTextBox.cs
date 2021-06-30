@@ -17,9 +17,9 @@ public class ExpandableTextBox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (tx.gameObject.GetComponent<RectTransform>().rect.height + 35f > minHeight)
+        if (tx.gameObject.GetComponent<RectTransform>().rect.height + 100f > minHeight)
         {
-            BGImage.sizeDelta = new Vector2(BGImage.rect.width, tx.gameObject.GetComponent<RectTransform>().rect.height + 35f);
+            BGImage.sizeDelta = new Vector2(BGImage.rect.width, tx.gameObject.GetComponent<RectTransform>().rect.height + 100f);
         }
 
         gameObject.transform.position = Input.mousePosition + new Vector3(1,1,0);
