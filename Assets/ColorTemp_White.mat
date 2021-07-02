@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ColorTemp_White
+  m_Shader: {fileID: -6465566751694194690, guid: f1887c67ceaec4948a5f3fc593c7751f,
+    type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 0f2d3c43fe5f9414992da770df9ab0d6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - Color_24432807: {r: 1, g: 1, b: 1, a: 0}
+    - SkinColor_Shadow_2: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color_Light: {r: 1, g: 1, b: 1, a: 0}
+    - _EyeAccColor: {r: 1, g: 1, b: 1, a: 0}
+    - _EyeColor_Def: {r: 1, g: 1, b: 1, a: 0}
+    - _EyeColor_Shadow: {r: 1, g: 1, b: 1, a: 0}
+    - _FaceAccColor_Def: {r: 1, g: 1, b: 1, a: 1}
+    - _FaceAccColor_Shadow: {r: 1, g: 1, b: 1, a: 0}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _HairColor_Def: {r: 1, g: 1, b: 1, a: 0}
+    - _HairColor_Shadow: {r: 1, g: 1, b: 1, a: 0}
+    - _OuterAccColor_Def: {r: 1, g: 1, b: 1, a: 0}
+    - _OuterAccColor_Shadow: {r: 1, g: 1, b: 1, a: 0}
+    - _OuterColor_Def: {r: 1, g: 1, b: 1, a: 0}
+    - _OuterColor_Shadow: {r: 1, g: 1, b: 1, a: 0}
+    - _OuterColor_Shadow_2: {r: 1, g: 1, b: 1, a: 0}
+    - _PantsAccColor_Def: {r: 1, g: 1, b: 1, a: 0}
+    - _PantsAccColor_Shadow: {r: 1, g: 1, b: 1, a: 0}
+    - _PantsColor_Def: {r: 1, g: 1, b: 1, a: 0}
+    - _PantsColor_Shadow: {r: 1, g: 1, b: 1, a: 0}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShirtColor: {r: 1, g: 1, b: 1, a: 0}
+    - _ShoesColor_Def: {r: 1, g: 1, b: 1, a: 0}
+    - _ShoesColor_Shadow: {r: 1, g: 1, b: 1, a: 0}
+    - _SkinColor_Def: {r: 1, g: 1, b: 1, a: 0}
+    - _SkinColor_Shadow: {r: 1, g: 1, b: 1, a: 0}

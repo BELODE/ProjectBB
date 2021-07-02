@@ -12,7 +12,7 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
     float speedIndex, runCoolDown = 3f;
     Animator ani;
     public PhotonView photonView;
-    public GameObject PlayerLight, PlayerCamera, CustomizeCanvas, paletteCamera, GameCanvas, target, researchSlider, runSlider, interactionTextBox, alwaysOnCanvas;
+    public GameObject PlayerLight, PlayerCamera, GameCanvas, target, researchSlider, runSlider, interactionTextBox, alwaysOnCanvas;
     public Text playerNameText;
     public Inventory inven;
     public bool isGameStarted = false;
@@ -43,8 +43,6 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
             ani = gameObject.GetComponent<Animator>();
             PlayerLight.SetActive(true);
             PlayerCamera.SetActive(true);
-            CustomizeCanvas.SetActive(true);
-            CustomizeCanvas.GetComponent<Canvas>().enabled = false;
             alwaysOnCanvas.SetActive(true);
             playerNameText.text = PhotonNetwork.NickName;
             playerNameText.color = Color.white;
@@ -86,7 +84,6 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
                 else
                 {
                     ani.SetBool("walking", false);
-                    ani.SetBool("breaking", false);
                     this.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
                 }
 
@@ -121,11 +118,17 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
 
                     if (Input.GetKey(KeyCode.LeftShift) && isRunCoolDown == false && ani.GetBool("walking"))
                     {
+                        ani.SetBool("Running", true);
                         runSlider.GetComponent<Slider>().value -= Time.deltaTime * 2;
                     }
                     else if (isRunCoolDown == false)
                     {
+                        ani.SetBool("Running", false);
                         runSlider.GetComponent<Slider>().value += Time.deltaTime * 0.5f;
+                    }
+                    else
+                    {
+                        ani.SetBool("Running", false);
                     }
                 }
             }
@@ -157,34 +160,7 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
     {
         if (target.name == "Customizing")
         {
-            if (CustomizeCanvas.GetComponent<Canvas>().enabled)
-            {
-                paletteCamera.SetActive(false);
-                PlayerCamera.SetActive(true);
-                CustomizeCanvas.GetComponent<Canvas>().enabled = false;
-                lockInteraction = false;
-                alwaysOnCanvas.SetActive(true);
-                Canvas[] sceneCanvas = GameObject.Find("SceneCanvas").GetComponentsInChildren<Canvas>();
-                foreach (Canvas canvas in sceneCanvas)
-                {
-                    canvas.enabled = true;
-                }
-            }
-            else
-            {
-                paletteCamera.SetActive(true);
-                PlayerCamera.SetActive(false);
-                CustomizeCanvas.GetComponent<Canvas>().enabled = true;
-                lockInteraction = true;
-                alwaysOnCanvas.SetActive(false);
-                ani.SetFloat("x", 1);
-                ani.SetFloat("y", 0);
-                Canvas[] sceneCanvas = GameObject.Find("SceneCanvas").GetComponentsInChildren<Canvas>();
-                foreach (Canvas canvas in sceneCanvas)
-                {
-                    canvas.enabled = false;
-                }
-            }
+
         }
 
         else if (target.name == "Drawer")
@@ -246,7 +222,6 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
         Vector2 move = new Vector2(xMove, yMove).normalized;
 
         ani.SetBool("walking", true);
-        ani.SetBool("breaking", true);
 
         ani.SetFloat("x", move.x);
         ani.SetFloat("y", move.y);
