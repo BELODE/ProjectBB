@@ -22,7 +22,7 @@ public class PlayerFOV : MonoBehaviour
 
     void DrawFOV()
     {
-        for(int i = 0; i < targetCollider.Length; i++)
+        /*for(int i = 0; i < targetCollider.Length; i++)
         {
             Transform target = targetCollider[i].transform;
             Vector2 dirTarget = (target.position - transform.position).normalized;
@@ -32,7 +32,8 @@ public class PlayerFOV : MonoBehaviour
             {
                 if (!Physics2D.Raycast(transform.position, dirTarget, dstTarget, layerMask))
                 {
-                    target.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                    if (target.GetComponent<PlayerMove>().life == true)
+                        target.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
                 }
                 else
                 {
@@ -43,6 +44,6 @@ public class PlayerFOV : MonoBehaviour
             {
                 target.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
             }
-        }
+        }*/
     }
 }
