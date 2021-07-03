@@ -15,6 +15,7 @@ public class PlayerMove : MonoBehaviour
     public bool breaking = false;
     public bool Push = false;
     public bool f_check = false;
+    public bool life = true;
 
     public List<GameObject> collisions = new List<GameObject>();
 
@@ -27,6 +28,7 @@ public class PlayerMove : MonoBehaviour
     public GameObject grabbingObject, grabbingObjectParent;
     public GameObject Press_F;
     public Vector3 grabbingObjectPosition;
+    public GameObject deadBody;
 
     public BoxCollider2D eastGrabCol, westGrabCol;
 
@@ -54,7 +56,6 @@ public class PlayerMove : MonoBehaviour
         else
         {
             ani.SetBool("walking", false);
-            ani.SetBool("breaking", false);
             breaking = false;
             this.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
         }
@@ -76,6 +77,13 @@ public class PlayerMove : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Dead();
+        }
+
+        Debug.Log(gameObject.GetComponent<SpriteRenderer>().color);
 
         AniControll();
 
@@ -340,7 +348,6 @@ public class PlayerMove : MonoBehaviour
     private void Move(float xMove,float yMove)
     {
         ani.SetBool("walking", true);
-        ani.SetBool("breaking", true);
 
         breaking = true;
 
@@ -374,6 +381,16 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         collisions.Remove(collision.gameObject);
+    }
+
+    private void Dead()
+    {
+        life = false;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.4f);
+        gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+        ani.SetTrigger("Death");
+        GameObject g = Instantiate(deadBody, transform.position, Quaternion.identity);
+        g.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
     }
 
 }
