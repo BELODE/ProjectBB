@@ -51,6 +51,7 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
         {
             playerNameText.text = photonView.Owner.NickName;
             playerNameText.color = Color.cyan;
+            gameObject.layer = LayerMask.NameToLayer("OtherPlayer");
         }
     }
 
@@ -255,6 +256,7 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
         {
             GameCanvas.SetActive(true);
             isGameStarted = true;
+            gameObject.GetComponent<PlayerFOV>().enabled = true;
         }
     }
 

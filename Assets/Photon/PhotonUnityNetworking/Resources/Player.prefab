@@ -1115,7 +1115,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 5
+  m_PointLightOuterRadius: 2.5
   m_PointLightDistance: 5
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -2600,6 +2600,7 @@ GameObject:
   - component: {fileID: 8836942950931675091}
   - component: {fileID: 1143389404193066237}
   - component: {fileID: 4382276687686082571}
+  - component: {fileID: 6403010993580108577}
   - component: {fileID: 2870306389649423600}
   - component: {fileID: 5824252212966113059}
   - component: {fileID: 7399996392078245013}
@@ -2780,6 +2781,26 @@ MonoBehaviour:
   isRunCoolDown: 0
   isMaster: 0
   randomResultList: 
+--- !u!114 &6403010993580108577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7766215713288100267}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4ab5d7e01f55904d9d6b8fbe93b4b9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewDistance: 2.5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8193
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  targetCollider: []
 --- !u!114 &2870306389649423600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2842,9 +2863,6 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: research
-  - Type: 1
-    SynchronizeType: 1
-    Name: Blend
   - Type: 1
     SynchronizeType: 1
     Name: x
@@ -2928,7 +2946,7 @@ MonoBehaviour:
   - {x: -0.25, y: 0.658, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 63518
+  m_InstanceId: 82646
 --- !u!1 &8140607568728039701
 GameObject:
   m_ObjectHideFlags: 0
