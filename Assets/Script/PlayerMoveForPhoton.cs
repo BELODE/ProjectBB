@@ -17,7 +17,7 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
     public float speed = 3;
     public float runSpeed = 1.5f;
     float speedIndex, runCoolDown = 3f;
-    Animator ani;
+    public Animator ani;
     public PhotonView photonView;
     public GameObject PlayerLight, PlayerCamera, GameCanvas, target, researchSlider, runSlider, interactionTextBox, alwaysOnCanvas;
     public Text playerNameText;
@@ -37,13 +37,17 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
     public Slider sliderHP;
     public Text HPText;
 
+    public GameObject knifePrefab;
+
     public float attackRange;
     public Transform attackTransform;
     public LayerMask enemyLayers;
     public float attackDamage;
+    public bool attackable = false;
 
     public bool isAttacked;
     public List<Collider2D> hitEnemies;
+    public bool roleSetting = false;
 
     void Awake()
     {
@@ -120,7 +124,7 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
                     this.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
                 }
 
-                if (_role == role.mafia)
+                if (attackable == true)
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
@@ -130,6 +134,18 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
                         ani.SetTrigger("Attack");
                         photonView.RPC("Attack", RpcTarget.AllBuffered);
                     }
+                }
+
+                if (_role == role.mafia)
+                {
+                    if (roleSetting == false)
+                    {
+                        photonView.RPC("ItemSpawn", RpcTarget.AllBuffered, "Prefabs/칼_weapon_10_");
+
+                        roleSetting = true;
+                    }
+
+
                 }
                 else if (_role == role.citizen)
                 {
@@ -292,7 +308,7 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
 
     }
 
-    void ChangeAniLayer(int index)
+    public void ChangeAniLayer(int index)
     {
         for(int i = 0; i < ani.layerCount; i++)
         {
@@ -502,7 +518,10 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
         else if(index == 2)
         {
             _role = role.mafia;
-            ani.SetLayerWeight(2, 1);
+
+            //ani.SetLayerWeight(2, 1);
+
+
         }
     }
 

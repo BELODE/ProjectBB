@@ -3790,6 +3790,7 @@ MonoBehaviour:
   _role: 0
   speed: 1.5
   runSpeed: 1.5
+  ani: {fileID: 0}
   photonView: {fileID: 2870306389649423600}
   PlayerLight: {fileID: 2767536365066296317}
   PlayerCamera: {fileID: 4513007635562045650}
@@ -3811,14 +3812,18 @@ MonoBehaviour:
   presentHP: 100
   sliderHP: {fileID: 8769934012075526869}
   HPText: {fileID: 3583281165642923212}
+  knifePrefab: {fileID: 4658303490335169672, guid: eb794814e78b034488d2003e024de611,
+    type: 3}
   attackRange: 0.05
   attackTransform: {fileID: 8274834900777534797}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 24576
   attackDamage: 10
+  attackable: 0
   isAttacked: 0
   hitEnemies: []
+  roleSetting: 0
 --- !u!114 &6403010993580108577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3984,7 +3989,7 @@ MonoBehaviour:
   - {x: -0.25, y: 0.658, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 52844
+  m_InstanceId: 89718
 --- !u!1 &8080982685114951431
 GameObject:
   m_ObjectHideFlags: 0
