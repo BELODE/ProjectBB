@@ -33,11 +33,9 @@ public class PlayerFOV : MonoBehaviour
             float dstTarget = Vector2.Distance(transform.position, target.position);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, dirTarget, dstTarget, layerMask);
 
-            Debug.DrawRay(transform.position, dirTarget * hit.distance, Color.yellow);
-
             if (dstTarget < viewDistance)
             {
-                if (hit.transform == target)
+                if (!hit)
                 {
                     //if (target.GetComponent<PlayerMove>().life == true)
                     target.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
