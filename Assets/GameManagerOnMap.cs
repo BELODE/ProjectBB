@@ -18,7 +18,7 @@ public class GameManagerOnMap : MonoBehaviour
 
             if (PhotonNetwork.IsMasterClient)
             {
-                PhotonView.Find(player.GetComponent<PhotonView>().ViewID).RPC("SetRole", RpcTarget.AllBuffered, Random.Range(1, 3));
+                PhotonView.Find(player.GetComponent<PhotonView>().ViewID).RPC("SetRole", RpcTarget.AllBuffered, Random.Range(2, 3));
             }
         }
     }

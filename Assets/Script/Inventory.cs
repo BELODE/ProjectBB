@@ -76,13 +76,37 @@ public class Inventory : MonoBehaviour
 
     void SelectItem(int index)
     {
-        for(int i = 0; i < selectedImage.Length; i++)
+        if (selectedImage[index].activeInHierarchy == false)
         {
-            selectedImage[i].SetActive(false);
-        }
+            for (int i = 0; i < selectedImage.Length; i++)
+            {
+                selectedImage[i].SetActive(false);
+            }
 
-        selectedImage[index].SetActive(true);
-        GetSelectedItemFromCSV(index);
+            selectedImage[index].SetActive(true);
+            GetSelectedItemFromCSV(index);
+
+            if (selectedItemType == "무기")
+            {
+                gameObject.GetComponentInParent<PlayerMoveForPhoton>().attackable = true;
+                if (selectedItemName == "칼")
+                {
+                    gameObject.GetComponentInParent<PlayerMoveForPhoton>().ChangeAniLayer(2);
+                }
+            }
+            else
+            {
+                gameObject.GetComponentInParent<PlayerMoveForPhoton>().attackable = false;
+                gameObject.GetComponentInParent<PlayerMoveForPhoton>().ChangeAniLayer(0);
+            }
+        }
+        else
+        {
+            selectedImage[index].SetActive(false);
+
+            gameObject.GetComponentInParent<PlayerMoveForPhoton>().attackable = false;
+            gameObject.GetComponentInParent<PlayerMoveForPhoton>().ChangeAniLayer(0);
+        }
     }
 
     void GetSelectedItemFromCSV(int index)
