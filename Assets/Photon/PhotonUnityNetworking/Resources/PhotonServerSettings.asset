@@ -49,6 +49,11 @@ MonoBehaviour:
   - SettingPart
   - StartButtonPUN
   - TargetSetting
+  - SetRole
+  - Attack
+  - AttackStartEnd
+  - AttackEnd
+  - AttackStart
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

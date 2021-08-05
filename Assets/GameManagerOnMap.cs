@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class GameManagerOnMap : MonoBehaviour
 {
@@ -14,6 +15,11 @@ public class GameManagerOnMap : MonoBehaviour
         {
             player.transform.parent = PlayerParents.transform;
             player.transform.position = SpawnPoints[Random.Range(0, SpawnPoints.Length)].transform.position;
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonView.Find(player.GetComponent<PhotonView>().ViewID).RPC("SetRole", RpcTarget.AllBuffered, Random.Range(1, 3));
+            }
         }
     }
 

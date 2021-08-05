@@ -130,6 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6422277}
+  - component: {fileID: 6422278}
   m_Layer: 0
   m_Name: SceneCanvas
   m_TagString: Untagged
@@ -153,6 +154,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6422278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6422276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caa82573a5be35148ae538d409c2ff9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resolutionDropDown: {fileID: 460800200}
+  options: []
 --- !u!1 &22978642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2764,7 +2779,18 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6422278}
+        m_MethodName: SetFullScreen
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &459087743
 GameObject:
@@ -2974,7 +3000,18 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6422278}
+        m_MethodName: SetResolution
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &460800201
 MonoBehaviour:
@@ -3024,7 +3061,6 @@ GameObject:
   - component: {fileID: 493595482}
   - component: {fileID: 493595485}
   - component: {fileID: 493595484}
-  - component: {fileID: 493595483}
   m_Layer: 0
   m_Name: OptionPanel
   m_TagString: Untagged
@@ -3057,19 +3093,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -370, y: -210}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &493595483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 493595481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caa82573a5be35148ae538d409c2ff9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resolutionDropDown: {fileID: 460800200}
 --- !u!114 &493595484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3680,6 +3703,7 @@ GameObject:
   - component: {fileID: 585435765}
   - component: {fileID: 585435768}
   - component: {fileID: 585435767}
+  - component: {fileID: 585435769}
   m_Layer: 0
   m_Name: Customizing
   m_TagString: Interactable
@@ -3803,6 +3827,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.19, y: 0.32}
   m_EdgeRadius: 0
+--- !u!114 &585435769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585435764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14181341884e3f945badbc72b73a3f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ani:
+  - {fileID: 9100000, guid: 1f0c21dfe1e0e4047b85c31e027da8f8, type: 2}
+  - {fileID: 9100000, guid: 2cb36ebaaf7b42d459559548e12178dd, type: 2}
 --- !u!1 &631306416
 GameObject:
   m_ObjectHideFlags: 0
@@ -7638,7 +7677,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Quit
+  m_Text: "\uB098\uAC00\uAE30"
 --- !u!222 &1428899535
 CanvasRenderer:
   m_ObjectHideFlags: 0

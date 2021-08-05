@@ -6,11 +6,16 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     public List<InvenItem> items;
+    public ExplainationBoardSetting _EBS;
     public int nowBlank = 0;
 
     public GameObject dragItem;
 
     public bool invenFull = false;
+
+    public GameObject[] selectedImage;
+
+    public string selectedItemName, selectedItemType;
 
     void Start()
     {
@@ -19,7 +24,22 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SelectItem(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SelectItem(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SelectItem(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SelectItem(3);
+        }
     }
 
     public void TakeItem(GameObject Item)
@@ -52,5 +72,31 @@ public class Inventory : MonoBehaviour
             invenFull = false;
         }
 
+    }
+
+    void SelectItem(int index)
+    {
+        for(int i = 0; i < selectedImage.Length; i++)
+        {
+            selectedImage[i].SetActive(false);
+        }
+
+        selectedImage[index].SetActive(true);
+        GetSelectedItemFromCSV(index);
+    }
+
+    void GetSelectedItemFromCSV(int index)
+    {
+        if (_EBS.ImageName.Contains(items[index].gameObject.GetComponent<Image>().sprite.name))
+        {
+            int temp = _EBS.ImageName.IndexOf(items[index].gameObject.GetComponent<Image>().sprite.name);
+            selectedItemName = _EBS.Name[temp];
+            selectedItemType = _EBS.Category[temp];
+        }
+        else
+        {
+            selectedItemName = null;
+            selectedItemType = null;
+        }
     }
 }

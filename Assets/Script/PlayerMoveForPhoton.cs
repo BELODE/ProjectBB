@@ -7,6 +7,13 @@ using Photon.Realtime;
 
 public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
 {
+    public enum role
+    {
+        none, citizen, mafia
+    }
+
+    public role _role = role.none;
+
     public float speed = 3;
     public float runSpeed = 1.5f;
     float speedIndex, runCoolDown = 3f;
@@ -23,6 +30,20 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
 
     public bool isMaster = false;
     public int[] randomResultList;
+
+    public int animatorIndex = 0;
+
+    public float maxHP, presentHP;
+    public Slider sliderHP;
+    public Text HPText;
+
+    public float attackRange;
+    public Transform attackTransform;
+    public LayerMask enemyLayers;
+    public float attackDamage;
+
+    public bool isAttacked;
+    public List<Collider2D> hitEnemies;
 
     void Awake()
     {
@@ -61,6 +82,11 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
 
         if (photonView.IsMine)
         {
+            if(isAttacked == true)
+            {
+                photonView.RPC("Attack", RpcTarget.AllBuffered);
+            }
+
             if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GameLobbyTest")
             {
                 if (PhotonNetwork.IsMasterClient)
@@ -71,6 +97,12 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
                 {
                     masterCanvas.SetActive(false);
                 }
+            }
+
+            if (sliderHP.IsActive())
+            {
+                sliderHP.value = (float)presentHP / (float)maxHP;
+                HPText.text = presentHP.ToString() + "/" + maxHP.ToString();
             }
 
 
@@ -86,6 +118,29 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
                 {
                     ani.SetBool("walking", false);
                     this.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+                }
+
+                if (_role == role.mafia)
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        ani.SetBool("walking", false);
+                        this.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
+
+                        ani.SetTrigger("Attack");
+                        photonView.RPC("Attack", RpcTarget.AllBuffered);
+                    }
+                }
+                else if (_role == role.citizen)
+                {
+                    if(presentHP <= maxHP / 2 && ani.GetLayerWeight(1) != 1)
+                    {
+                        ChangeAniLayer(1);
+                    }
+                    else if(presentHP > maxHP / 2 && ani.GetLayerWeight(0) != 1)
+                    {
+                        ChangeAniLayer(0);
+                    }
                 }
 
                 if (Input.GetKeyDown(KeyCode.F))
@@ -149,6 +204,9 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
         }
     }
 
+
+    
+
     IEnumerator RunCoolTimeSet()
     {
         isRunCoolDown = true;
@@ -161,7 +219,16 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
     {
         if (target.name == "Customizing")
         {
-
+            if (animatorIndex < target.GetComponent<AnimationContainer>().ani.Count - 1)
+            {
+                animatorIndex++;
+                ani.runtimeAnimatorController = target.GetComponent<AnimationContainer>().ani[animatorIndex];
+            }
+            else
+            {
+                animatorIndex = 0;
+                ani.runtimeAnimatorController = target.GetComponent<AnimationContainer>().ani[animatorIndex];
+            }
         }
 
         else if (target.name == "Drawer")
@@ -216,6 +283,23 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
             inven.TakeItem(target);
             photonView.RPC("ItemFarmingRPC", RpcTarget.AllBuffered);
         }
+    }
+
+    public void IsAttacked()
+    {
+
+        photonView.RPC("AttackEnd", RpcTarget.AllBuffered);
+
+    }
+
+    void ChangeAniLayer(int index)
+    {
+        for(int i = 0; i < ani.layerCount; i++)
+        {
+            ani.SetLayerWeight(i, 0);
+        }
+
+        ani.SetLayerWeight(index, 1);
     }
 
     private void Move(float xMove,float yMove)
@@ -406,5 +490,47 @@ public class PlayerMoveForPhoton : MonoBehaviourPunCallbacks
         {
             isMaster = false;
         }
+    }
+
+    [PunRPC]
+    void SetRole(int index)
+    {
+        if(index == 1)
+        {
+            _role = role.citizen;
+        }
+        else if(index == 2)
+        {
+            _role = role.mafia;
+            ani.SetLayerWeight(2, 1);
+        }
+    }
+
+    [PunRPC]
+    void Attack()
+    {
+        lockInteraction = true;
+        isAttacked = true;
+
+        Collider2D[] hitEnemyTemp = Physics2D.OverlapCircleAll(attackTransform.position, attackRange, enemyLayers);
+
+        foreach (Collider2D enemy in hitEnemyTemp)
+        {
+            if (!hitEnemies.Contains(enemy) && enemy.gameObject != this.gameObject)
+            {
+                hitEnemies.Add(enemy);
+                enemy.gameObject.GetComponent<PlayerMoveForPhoton>().presentHP -= attackDamage;
+                enemy.gameObject.GetComponent<Animator>().SetTrigger("Hurt");
+            }
+        }
+    }
+
+    [PunRPC]
+    void AttackEnd()
+    {
+        lockInteraction = false;
+        isAttacked = false;
+
+        hitEnemies.Clear();
     }
 }
